@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
- 	<string name="app_name">CoPilot</string>
+ 	<string name="app_name">Scooter</string>
     <string name="auth_app_name">MAuthorization</string>
     <string name="case_app_name">MCase</string>
     <string name="capture_app_name">MCapture</string>

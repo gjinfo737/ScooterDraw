@@ -13,9 +13,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.drawshtuff.drawer.R.drawable;
 import com.drawshtuff.drawer.R.id;
-import com.drawshtuff.drawer.R.string;
 import com.drawshtuff.drawer.copilot.SignatureView;
 
 import copilot.app.data.RefForm.SyncState;
@@ -49,7 +47,6 @@ public class Draw extends Activity implements IFormMenuItemStateProvider {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		FormActivityMenu formActivityMenu = new FormActivityMenu(getApplicationContext(), getLayoutInflater());
 		formActivityMenu.fillMenu(menu, this, SyncState.SYNC);
-		formActivityMenu.addNewMenuItem(menu, drawable.sync_sync_color, 100000, string.app_name, true);
 		return true;
 	}
 

@@ -7,9 +7,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Spinner;
 
 import com.drawshtuff.drawer.R.drawable;
+import com.drawshtuff.drawer.R.layout;
 import com.drawshtuff.drawer.R.string;
 
 import copilot.app.data.RefForm;
@@ -25,6 +27,7 @@ public class FormActivityMenu {
 	public static final int BUTTON_PEN_WEIGHT_ID = -105;
 	public static final int BUTTON_DELETE_FORM = -106;
 	public static final int BUTTON_SYNC_ID = -107;
+	public static final int BUTTON_PALETTE = -108;
 	private Context context;
 	private LayoutInflater layoutInflater;
 	public static Map<SyncState, EnableDependentLayoutResource> SYNC_SPINNER_DRAWABLE_MAP = new HashMap<RefForm.SyncState, EnableDependentLayoutResource>() {
@@ -42,19 +45,34 @@ public class FormActivityMenu {
 	}
 
 	public void fillMenu(Menu menu, IFormMenuItemStateProvider stateProvider, SyncState initialSyncState) {
-		addNewMenuItem(menu, -1, BUTTON_PAGE_SEEKBAR_DIALOG_ID, string.eng_0_form_menu_title_seekbar, true);
-		addSyncSpinner(addNewMenuItem(menu, drawable.forms_pen_weight_icon, BUTTON_SYNC_ID, string.eng_0_form_menu_title_sync, true), stateProvider, initialSyncState);
-		addNewMenuItem(menu, drawable.forms_pen_weight_icon, BUTTON_PEN_WEIGHT_ID, string.eng_0_form_menu_title_pen_weight_icon, true);
-		addNewMenuItem(menu, drawable.forms_sign_icon, BUTTON_SIGN_PAGE_ID, string.eng_0_form_menu_title_sign, true);
+
+		// addNewMenuItem(menu, -1, BUTTON_PAGE_SEEKBAR_DIALOG_ID,
+		// string.eng_0_form_menu_title_seekbar, true);
+		// addSyncSpinner(addNewMenuItem(menu, drawable.forms_pen_weight_icon,
+		// BUTTON_SYNC_ID, string.eng_0_form_menu_title_sync, true),
+		// stateProvider, initialSyncState);
+		// addNewMenuItem(menu, drawable.forms_pen_weight_icon,
+		// BUTTON_PEN_WEIGHT_ID, string.eng_0_form_menu_title_pen_weight_icon,
+		// true);
+		addPenPalette(menu);
 		addNewMenuItem(menu, drawable.theme_std_menu_email, BUTTON_EMAIL_FORM_ID, string.eng_0_form_menu_title_email, true);
 		addNewMenuItem(menu, drawable.theme_std_menu_print, BUTTON_PRINT_FORM_ID, string.eng_0_form_menu_title_print, true);
 		addNewMenuItem(menu, drawable.theme_std_menu_delete, BUTTON_DELETE_FORM, string.eng_0_form_menu_title_delete, true);
 		addNewMenuItem(menu, drawable.theme_std_menu_save, BUTTON_SAVE_PAGE_ID, string.eng_0_form_menu_title_save, true);
+
+	}
+
+	private void addPenPalette(Menu menu) {
+		MenuItem palette = addNewMenuItem(menu, android.R.drawable.btn_star_big_on, BUTTON_PALETTE, string.eng_0_invalid_state, true);
+		View view = layoutInflater.inflate(layout.fom_pallete, null);
+		palette.setActionView(view);
+		palette.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		palette.setVisible(true);
+
 	}
 
 	public MenuItem addNewMenuItem(Menu parent, int icon, int id, int title, boolean alwaysShow) {
 		MenuItem oRet = parent.add(Menu.NONE, id, Menu.NONE, title);
-
 		int showAsAction = (alwaysShow ? MenuItem.SHOW_AS_ACTION_ALWAYS : MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		if (icon != -1) {
 			oRet.setIcon(icon);
@@ -69,13 +87,14 @@ public class FormActivityMenu {
 		return oRet;
 	}
 
-	private void addSyncSpinner(MenuItem item, IFormMenuItemStateProvider stateProvider, SyncState intialSelection) {
-		// SyncSpinnerAdapter adapter = new SyncSpinnerAdapter(layoutInflater,
-		// SYNC_SPINNER_DRAWABLE_MAP);
-		// SyncSpinner syncSpinner = new SyncSpinner(context, layoutInflater,
-		// intialSelection, adapter, stateProvider);
-		// item.setActionView(syncSpinner.getSpinner());
-	}
+	// private void addSyncSpinner(MenuItem item, IFormMenuItemStateProvider
+	// stateProvider, SyncState intialSelection) {
+	// SyncSpinnerAdapter adapter = new SyncSpinnerAdapter(layoutInflater,
+	// SYNC_SPINNER_DRAWABLE_MAP);
+	// SyncSpinner syncSpinner = new SyncSpinner(context, layoutInflater,
+	// intialSelection, adapter, stateProvider);
+	// item.setActionView(syncSpinner.getSpinner());
+	// }
 
 	public void refreshSaveItem(Menu menu, boolean enabled, IDrawableResourceProvider drawableProvider) {
 		refreshItem(menu, enabled, BUTTON_SAVE_PAGE_ID, drawableProvider);
