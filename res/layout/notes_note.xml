@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/notes_note_layout"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:layout_weight="1" >
+
+    <RelativeLayout
+        android:id="@+id/notes_note_layout_relative"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="20dip"
+        android:paddingTop="20dip" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/notes_overlay"
+            android:paddingBottom="20dip"
+            android:paddingTop="20dip" >
+
+            <LinearLayout
+                android:id="@+id/notes_body"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_below="@+id/notes_header_border"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="50dp"
+                android:background="#C0C0C0"
+                android:minWidth="690dp"
+                android:orientation="vertical" >
+
+                <copilot.module.notes.MNotePadTextBox
+                    android:id="@+id/notes_transcription_title"
+                    android:layout_width="690dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/notes_text"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:background="@android:color/white"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:gravity="bottom"
+                    android:paddingLeft="8dip"
+                    android:paddingRight="8dip"
+                    android:text="TextView"
+                    android:textColor="#FF000000"
+                    android:textSize="22sp"
+                    android:typeface="monospace"
+                    android:visibility="gone" />
+
+                <copilot.module.notes.MNotePadTextBox
+                    android:id="@+id/notes_text"
+                    android:layout_width="690dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:background="@android:color/white"
+                    android:capitalize="sentences"
+                    android:fadingEdge="vertical"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:paddingBottom="5dip"
+                    android:paddingLeft="8dip"
+                    android:paddingRight="8dip"
+                    android:scrollbars="vertical"
+                    android:textColor="#FF000000"
+                    android:textSize="22sp"
+                    android:typeface="monospace" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/notes_header_border"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/notes_body"
+                android:layout_alignRight="@+id/notes_body"
+                android:background="#C0C0C0"
+                android:minHeight="70dp" >
+
+                <TextView
+                    android:id="@+id/notes_text_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginTop="3dp"
+                    android:background="#FFFFFF"
+                    android:focusable="true"
+                    android:gravity="top|right"
+                    android:minHeight="70dp"
+                    android:paddingRight="12dp"
+                    android:paddingTop="8dp"
+                    android:textSize="16dp"
+                    android:textStyle="italic"
+                    android:typeface="serif" >
+
+                    <requestFocus />
+                </TextView>
+
+                <TextView
+                    android:id="@+id/notes_pkNote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/notes_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/notes_overlay"
+            android:layout_width="fill_parent"
+            android:layout_height="56dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical" >
+        </RelativeLayout>
+    </RelativeLayout>
+
+</ScrollView>

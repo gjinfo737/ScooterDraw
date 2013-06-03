@@ -13,10 +13,16 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.drawshtuff.drawer.R.drawable;
 import com.drawshtuff.drawer.R.id;
+import com.drawshtuff.drawer.R.string;
 import com.drawshtuff.drawer.copilot.SignatureView;
 
-public class Draw extends Activity {
+import copilot.app.data.RefForm.SyncState;
+import copilot.module.forms.menu.FormActivityMenu;
+import copilot.module.forms.menu.IFormMenuItemStateProvider;
+
+public class Draw extends Activity implements IFormMenuItemStateProvider {
 
 	private RelativeLayout drawArea;
 	private SignatureView signatureView;
@@ -37,6 +43,14 @@ public class Draw extends Activity {
 
 		startDrawing();
 
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		FormActivityMenu formActivityMenu = new FormActivityMenu(getApplicationContext(), getLayoutInflater());
+		formActivityMenu.fillMenu(menu, this, SyncState.SYNC);
+		formActivityMenu.addNewMenuItem(menu, drawable.sync_sync_color, 100000, string.app_name, true);
+		return true;
 	}
 
 	private void setupBtns() {
@@ -135,9 +149,81 @@ public class Draw extends Activity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_draw, menu);
-		return true;
+	public boolean canSave() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public String getShowPageMessage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean shouldSyncStateSpinnerBeEnabled() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isReadOnly() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isPKPositive() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canMail() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canPrint() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean canDeleteForm() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public SyncState syncState() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isDrawing() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isDivertedState() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isSavedForm() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void onSyncStateChanged() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

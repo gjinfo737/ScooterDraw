@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:id="@+id/rellay">
+	<Button android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:layout_alignParentRight="true"
+		android:layout_alignParentBottom="true" android:layout_alignLeft="@+id/maxelem_tv"
+		android:id="@+id/max_set_button"></Button>
+	<LinearLayout android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:layout_alignParentTop="true"
+		android:layout_alignParentLeft="true" android:layout_above="@+id/numofview_seekBar"
+		android:background="@color/ulistviews_dkgrey" android:orientation="horizontal"
+		android:id="@+id/mainlinearLayout1">
+		<ScrollView android:id="@+id/main_scrollView1"
+			android:layout_width="wrap_content" android:layout_height="wrap_content">
+			<LinearLayout android:layout_height="wrap_content"
+				android:id="@+id/linearLayout3" android:orientation="vertical"
+				android:layout_margin="15dp" android:layout_width="match_parent">
+				<TextView android:id="@+id/lvtype_textView"
+					android:layout_height="wrap_content" android:textSize="25dp"
+					android:text="@string/ulistviews_lv_type" android:layout_width="wrap_content"></TextView>
+				<RadioGroup android:layout_height="wrap_content"
+					android:id="@+id/lvtype_radioGroup" android:layout_width="wrap_content">
+					<RadioButton android:text="@string/ulistviews_polvstr"
+						android:id="@+id/radio_polv" android:layout_height="wrap_content"
+						android:layout_width="wrap_content"></RadioButton>
+					<RadioButton android:text="@string/ulistviews_column"
+						android:id="@+id/radio_columnlv" android:layout_marginTop="10dp"
+						android:layout_height="wrap_content" android:layout_width="wrap_content"></RadioButton>
+					<RadioButton android:text="@string/ulistviews_grid"
+						android:id="@+id/radio_gridlv" android:layout_marginTop="10dp"
+						android:layout_height="wrap_content" android:layout_width="wrap_content"></RadioButton>
+					<RadioButton android:text="@string/ulistviews_coverflow"
+						android:id="@+id/radio_coverflowlv" android:layout_marginTop="10dp"
+						android:layout_height="wrap_content" android:layout_width="wrap_content"></RadioButton>
+					<RadioButton android:text="@string/ulistviews_radial"
+						android:id="@+id/radio_radiallv" android:layout_marginTop="10dp"
+						android:layout_height="wrap_content" android:layout_width="wrap_content" android:checked="true"></RadioButton>
+					<RadioButton android:text="@string/ulistviews_pageliststr"
+						android:id="@+id/radio_pagelistview" android:layout_height="wrap_content"
+						android:layout_width="wrap_content"></RadioButton>
+				</RadioGroup>
+				<LinearLayout android:layout_height="wrap_content"
+					android:id="@+id/linearLayout2" android:orientation="vertical"
+					android:layout_width="wrap_content" android:layout_marginTop="4dp">
+					<TextView android:id="@+id/vg_textView"
+						android:layout_height="wrap_content" android:textSize="25dp"
+						android:text="@string/ulistviews_vg_type" android:layout_gravity="left"
+						android:layout_width="wrap_content"></TextView>
+					<RadioGroup android:layout_height="wrap_content"
+						android:id="@+id/vg_radioGroup" android:layout_width="wrap_content">
+						<RadioButton android:text="OneLine" android:id="@+id/vg_radio0"
+							android:layout_marginTop="10dp" android:layout_height="wrap_content"
+							android:layout_width="wrap_content"></RadioButton>
+						<RadioButton android:text="TwoLine" android:id="@+id/vg_radio1"
+							android:layout_marginTop="10dp" android:layout_height="wrap_content"
+							android:layout_width="wrap_content" android:checked="true"></RadioButton>
+						<RadioButton android:text="OneDrawAndOneLine"
+							android:id="@+id/vg_radio2" android:layout_marginTop="10dp"
+							android:layout_height="wrap_content" android:layout_width="wrap_content"></RadioButton>
+						<RadioButton android:text="TwoDraw" android:id="@+id/vg_radio3"
+							android:layout_height="wrap_content" android:layout_width="wrap_content"></RadioButton>
+						<RadioButton android:text="@string/ulistviews_nonll"
+							android:id="@+id/vg_radio4" android:layout_height="wrap_content"
+							android:layout_width="wrap_content"></RadioButton>
+						<RadioButton android:layout_width="wrap_content"
+							android:layout_height="wrap_content" android:id="@+id/vg_radio5"
+							android:text="Page"></RadioButton>
+						<RadioButton android:layout_height="wrap_content"
+							android:layout_width="wrap_content" android:id="@+id/vg_radio6"
+							android:text="OneBtn OneTv"></RadioButton>
+					</RadioGroup>
+				</LinearLayout>
+			</LinearLayout>
+		</ScrollView>
+	</LinearLayout>
+	<TextView android:text="0" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:textSize="20dp"
+		android:id="@+id/numofv_textView" android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true"></TextView>
+	<LinearLayout android:layout_height="wrap_content"
+		android:layout_width="wrap_content" android:id="@+id/list_linearLayout1"
+		android:layout_alignParentTop="true" android:layout_toRightOf="@+id/mainlinearLayout1"
+		android:layout_alignBottom="@+id/mainlinearLayout1">
+		<ListView android:layout_weight="1" android:id="@android:id/list"
+			android:layout_width="fill_parent" android:layout_height="0dip"></ListView>
+		<RelativeLayout android:layout_weight="1"
+			android:layout_width="wrap_content" android:id="@android:id/empty"
+			android:layout_height="0dip"></RelativeLayout>
+	</LinearLayout>
+	<TextView android:layout_height="wrap_content"
+		android:layout_width="wrap_content" android:inputType="number"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentRight="true" android:id="@+id/maxelems_TextView"
+		android:text="17" android:layout_marginBottom="15dp" android:textSize="25dp"></TextView>
+	<TextView android:layout_width="wrap_content"
+		android:textSize="22dp" android:id="@+id/maxelem_tv"
+		android:layout_height="wrap_content" android:text="@string/ulistviews_max"
+		android:layout_alignBaseline="@+id/maxelems_TextView"
+		android:layout_alignBottom="@+id/maxelems_TextView"
+		android:layout_toLeftOf="@+id/maxelems_TextView"></TextView>
+	<SeekBar android:layout_width="match_parent" android:id="@+id/numofview_seekBar"
+		android:layout_margin="15dp" android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true" android:layout_toLeftOf="@+id/maxelem_tv"></SeekBar>
+	<LinearLayout android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:layout_centerInParent="true"
+		android:id="@+id/maxelems_set_linearLayout" android:background="@color/ulistviews_dkgrey">
+		<TextView android:layout_width="wrap_content"
+			android:textSize="30dp" android:id="@+id/setmaxelemslabel_textView"
+			android:layout_height="wrap_content" android:text="@string/ulistviews_setmax"></TextView>
+		<EditText android:layout_weight="1" android:inputType="number"
+			android:layout_width="100dp" android:id="@+id/maxelem_set_editText"
+			android:layout_height="wrap_content" android:maxLength="2"></EditText>
+		<Button android:id="@+id/ok_button" android:layout_width="wrap_content"
+			android:text="OK" android:layout_height="wrap_content"
+			android:layout_marginLeft="20dp"></Button>
+	</LinearLayout>
+
+</RelativeLayout>

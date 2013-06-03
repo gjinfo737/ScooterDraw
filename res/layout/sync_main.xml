@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:id="@+id/sync_relativelayout"
+>
+
+	<TextView
+		android:text="title"
+		android:textSize="40dp"
+		android:id="@+id/sync_title"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_above="@+id/sync_subtitle"
+		android:layout_centerHorizontal="true"
+	></TextView>
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_above="@+id/sync_radioGroup"
+		android:layout_centerHorizontal="true"
+		android:id="@+id/sync_subtitle"
+		android:text=""
+		android:textSize="20dp"
+	></TextView>
+	<RadioGroup
+		android:id="@+id/sync_radioGroup"
+		android:orientation="horizontal"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_centerVertical="true"
+		android:layout_centerHorizontal="true"
+	>
+		<RadioButton
+			android:id="@+id/sync_radio0"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+		></RadioButton>
+		<RadioButton
+			android:id="@+id/sync_radio1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+		></RadioButton>
+		<RadioButton
+			android:id="@+id/sync_radio2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+		></RadioButton>
+		<RadioButton
+			android:id="@+id/sync_radio3"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+		></RadioButton>
+		<RadioButton
+			android:id="@+id/sync_radio4"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+		></RadioButton>
+		<RadioButton
+			android:id="@+id/sync_radio5"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+		></RadioButton>
+		<RadioButton
+			android:id="@+id/sync_radio6"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+		></RadioButton>
+	</RadioGroup>
+	<ImageView
+		android:id="@+id/sync_iconImageView"
+		android:src="@drawable/sync_app_icon128x128"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_above="@+id/sync_title"
+		android:layout_centerHorizontal="true"
+	></ImageView>
+	<TextView
+		android:text="Data for Compass CoPilot will now be downloaded to the tablet. Please do not exit Compass CoPilot while the data is being downloaded to the tablet. Compass CoPilot will launch and ask for your password when the data transfer has completed."
+		android:textSize="25dp"
+		android:id="@+id/sync_message"
+		android:gravity="center"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_below="@+id/sync_radioGroup"></TextView>
+
+
+</RelativeLayout>

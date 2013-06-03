@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/viewer_action_bar_page_selector"
+        android:enabled="true"
+        android:showAsAction="always"
+        android:title="Page..."
+        android:visible="true"/>
+    <item
+        android:id="@+id/viewer_action_bar_add_edit_caption"
+        android:enabled="true"
+        android:icon="@drawable/caption_enabled_button"
+        android:showAsAction="always"
+        android:visible="true"/>
+    <item
+        android:id="@+id/viewer_action_bar_email"
+        android:enabled="true"
+        android:icon="@drawable/theme_std_menu_email"
+        android:showAsAction="always"
+        android:visible="true"/>
+    <item
+        android:id="@+id/viewer_action_bar_print"
+        android:enabled="true"
+        android:icon="@drawable/theme_std_menu_print"
+        android:showAsAction="always"
+        android:visible="true"/>
+    <item
+        android:id="@+id/viewer_action_bar_delete"
+        android:enabled="true"
+        android:icon="@drawable/theme_std_menu_delete"
+        android:showAsAction="always"
+        android:visible="true"/>
+    <item
+        android:id="@+id/viewer_action_bar_save"
+        android:enabled="true"
+        android:icon="@drawable/theme_std_menu_save"
+        android:showAsAction="always"
+        android:visible="true"/>
+
+</menu>

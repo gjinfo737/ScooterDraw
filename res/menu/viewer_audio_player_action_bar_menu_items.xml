@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item
+		android:title="@string/capture_stopplaying"
+		android:id="@+id/audioplayer_action_bar_stop_playing"
+		android:visible="true"
+		android:enabled="true"
+		android:showAsAction="always" />
+	<item
+		android:title="@string/capture_startplaying"
+		android:id="@+id/audioplayer_action_bar_start_playing"
+		android:visible="true"
+		android:enabled="true"
+		android:showAsAction="always" />
+	<item
+		android:title="@string/capture_stoprecording"
+		android:id="@+id/audioplayer_action_bar_stop_recording"
+		android:visible="true"
+		android:enabled="true"
+		android:showAsAction="always" />
+	<item
+		android:title="@string/capture_startrecording"
+		android:id="@+id/audioplayer_action_bar_start_recording"
+		android:visible="true"
+		android:enabled="true"
+		android:showAsAction="always" />
+	<item
+		android:id="@+id/audioplayer_action_bar_email"
+		android:visible="true"
+		android:enabled="true"
+		android:showAsAction="always"
+		android:icon="@drawable/theme_std_menu_email" />
+	<item
+		android:id="@+id/audioplayer_action_bar_delete"
+		android:visible="true"
+		android:enabled="true"
+		android:showAsAction="always"
+		android:icon="@drawable/theme_std_menu_delete" />
+	<item
+		android:id="@+id/audioplayer_action_bar_save"
+		android:visible="true"
+		android:enabled="true"
+		android:showAsAction="always"
+		android:icon="@drawable/theme_std_menu_save" />
+</menu>
+

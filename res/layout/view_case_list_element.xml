@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/mListElementEventTypeLayoutIcon"
+        android:layout_width="@dimen/navigator_icon_width"
+        android:layout_height="@dimen/navigator_icon_height"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/theme_std_case128x128" >
+    </ImageView>
+
+    <TextView
+        android:id="@+id/mListElementCaseLayoutCaseNumberTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mListElementEventTypeLayoutIcon"
+        android:layout_centerHorizontal="true"
+        android:text=""
+        android:textColor="#CCCCCC"
+        android:textSize="20dp" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/mListElementCaseLayoutCaseNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mListElementCaseLayoutCaseNumberTextView"
+        android:layout_centerHorizontal="true"
+        android:text=""
+        android:textColor="#CCCCCC"
+        android:textSize="20dp" >
+    </TextView>
+
+</RelativeLayout>

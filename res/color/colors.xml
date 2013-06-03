@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<item
+  xmlns:android="http://schemas.android.com/apk/res/android">
+ <color name="blue">#FF0F5ECA</color>
+ <color name="yellow">#FFE1C80D</color>
+ <color name="default">#FFFFFFFF</color>
+</item>

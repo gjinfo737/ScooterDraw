@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/capture_start_outer_linearlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center" >
+
+    <ProgressBar
+        android:id="@+id/capture_start_progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+    <RelativeLayout
+        android:id="@+id/capture_start_inner_relativelayout"
+        android:layout_width="550dp"
+        android:layout_height="300dp"
+        android:background="@drawable/audio_record_dialog_background" >
+
+        <TextView
+            android:id="@+id/capture_start_message_textView"
+            android:layout_width="450dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="90dp"
+            android:text="You have 0 images."
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/capture_start_title_textView"
+            android:layout_width="450dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="37dp"
+            android:text="Image"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <LinearLayout
+            android:id="@+id/capture_inner_btn_linlay"
+            android:layout_width="450dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="36dp"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/capture_image_continuebatchbtn"
+                android:layout_width="215dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Yes" android:background="#000"/>
+
+            <Button
+                android:id="@+id/capture_stopbatchbtn"
+                android:layout_width="215dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="No" android:background="#000"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

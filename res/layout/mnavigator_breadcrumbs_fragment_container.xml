@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<copilot.module.breadcrumbs.BreadCrumbRelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	<LinearLayout
+		android:id="@+id/mnavigator_home_view"
+		android:orientation="vertical"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:gravity="center">
+		<ImageView
+			android:id="@+id/mnavigator_home_view_imageview"
+			android:src="@drawable/theme_std_home_icon128x128"
+			android:layout_width="@dimen/breadcrumb_icon_width"
+			android:layout_height="@dimen/breadcrumb_icon_height" />
+		<TextView
+			android:text="Home"
+			android:id="@+id/mnavigator_home_view_textview"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"></TextView>
+
+	</LinearLayout>
+</copilot.module.breadcrumbs.BreadCrumbRelativeLayout>

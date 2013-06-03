@@ -1,8 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+ 	<string name="app_name">CoPilot</string>
+    <string name="auth_app_name">MAuthorization</string>
+    <string name="case_app_name">MCase</string>
+    <string name="capture_app_name">MCapture</string>
+    <string name="capture_startplaying">Start Playing</string>
+    <string name="capture_stopplaying">Stop Playing</string>
+    <string name="capture_startrecording">Start Recording</string>
+    <string name="capture_stoprecording">Stop Recording</string>
+    <string name="capture_cancel">Cancel</string>
+    <string name="capture_finish">Finish</string>
+    <string name="capture_recordinginprogress">Recording In Progress</string>
+    <string name="capture_mode_image_hand_written_note">capture_mode_image_hand_written_note</string>
+    <string name="capture_mode_image_body_diagram">capture_mode_image_body_diagram</string>
+    <string name="capture_mode_image_case_plan">capture_mode_image_case_plan</string>
+    <string name="capture_mode_image_injury">capture_mode_image_injury</string>
+    <string name="capture_mode_image_living_conditions">capture_mode_image_living_conditions</string>
+    <string name="capture_mode_image_intake_worksheet">capture_mode_image_intake_worksheet</string>
+    <string name="capture_mode_audio_interview">capture_mode_audio_interview</string>
+    <string name="capture_mode_audio_voice_note">capture_mode_audio_voice_note</string>
+    <string name="navigatormodule_app_name">NavigatorModule</string>
+    <string name="mnavigator_cases_members_tab_text">Members</string>
+    <string name="mnavigator_cases_narratives_tab_text">Narratives</string>
+    <string name="mnavigator_cases_case_info_tab_text">Case Details</string>
+    <string name="mnavigator_members_documents_tab_text">Documents</string>
+    <string name="mnavigator_members_notes_tab_text">Notes</string>
+    <string name="mnavigator_members_forms_tab_text">Forms</string>
+    <string name="mnavigator_members_member_info_tab_text">Member Details</string>
+    <string name="notes_app_name">MNotes</string>
+    <string name="people_app_name">MPeople</string>
+    <string name="sync_app_name">MSync</string>
+    <string name="mintents_app_name">MIntents</string>
+    <string name="viewer_app_name">ViewerModule</string>
+    <string name="viewer_nothing">Nothing to display</string>
+    <string name="mnavigator_sync_start_sync_message">Compass Connect has requested to start the sync process. Please wait for the sync process to complete.</string>
+    <string name="mnavigator_apk_shutdown_message">The sync process now needs to reload Compass CoPilot. Please wait for Compass CoPilot to relaunch automatically.</string>
+    <string name="mnavigator_apk_upload_complete_message">Data for Compass CoPilot will now be downloaded to the tablet. Please do not exit Compass Pilot while the data is being downloaded to the tablet. Compass CoPilot will launch and ask for your password when the data transfer has completed.</string>
+    <string name="mnavigator_restart_message">The data from Compass Connect has been downloaded to the tablet. Compass CoPilot will now restart and ask you to enter your password.</string>
+    <string name="delete_confirmation_message">Are you sure you want to delete this {0}?</string>
+    <string name="mnavigator_no_documents_message">No documents found for member</string>
+    <string name="mnavigator_no_notes_message">No notes found for member</string>
+    <string name="mnavigator_no_forms_message">No forms found for member</string>
+    <string name="mnavigator_no_members_message">No members found for case</string>
+    <string name="mnavigator_no_narratives_message">No narratives found for case</string>
+    <string name="mnavigator_no_event_types_message">No event types found</string>
+    <string name="mnavigator_no_cases_message">No cases found for this event type</string>
+    <string name="selectformactivity_no_forms_message">No forms found for event type</string>
+    <string name="ulistviews_app_name">uListViews</string>
+    <string name="ulistviews_column">Column</string>
+    <string name="ulistviews_grid">Grid</string>
+    <string name="ulistviews_coverflow">Coverflow</string>
+    <string name="ulistviews_radial">Radial</string>
+    <string name="ulistviews_lv_type">ListView Type</string>
+    <string name="ulistviews_vg_type">ViewGroup Type</string>
 
-    <string name="app_name">ScooterDraw</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="menu_settings">Settings</string>
+    <color name="ulistviews_dkgrey">#333333</color>
+
+    <string name="ulistviews_polvstr">Plain Old List View</string>
+    <string name="ulistviews_max">Max:</string>
+    <string name="ulistviews_setmax">Set Max Elements:</string>
+    <string name="ulistviews_nonll">Non LinearLayout</string>
+    <string name="ulistviews_pageliststr">Page List</string>
+    <string name="useekbartester_app_name">USeekBarPopupDialogTester</string>
+   
+    <string name="eng_0_yes">Yes</string>
+    <string name="eng_0_no">No</string>
+    <string name="eng_0_unsaved_changes">Unsaved Changes</string>
+    <string name="eng_0_msg_audio_recording_stopped">Your audio recording has stopped. Would you like to save it before exiting CoPilot?</string>
+    <string name="eng_0_msg_unsaved_changes_form">You have unsaved changes. Would you like to save them before closing this form?</string>
+    <string name="eng_0_msg_unsaved_changes_case">You have unsaved changes. Would you like to save them before closing Case Details?</string>
+    <string name="eng_0_msg_unsaved_changes_note">You have unsaved changes. Would you like to save them before closing this %s?</string>
+    <string name="eng_0_msg_unsaved_changes_note_swipe">You have unsaved changes. Would you like to save them before moving to the next %s?</string>
+    <string name="eng_0_msg_unsaved_changes_member">Would you like to save member changes?</string>
+    <string name="eng_0_msg_unsaved_changes_audio">You have unsaved changes. Would you like to save them before closing this audio recording?</string>
+    <string name="eng_0_msg_unsaved_changes_caption">You have unsaved changes. Would you like to save them before closing this page?</string>
+    <string name="eng_0_msg_ok_changes_capture_recording_paused">You are recording audio. The audio will continue to be paused until it is stopped.</string>
+    <string name="eng_0_msg_ok_changes_capture_playback_paused">You are playing audio. The audio will continue to be paused until it is stopped.</string>
+    <string name="eng_0_msg_ok_changes_capture_playback_progress">You are playing audio. The audio will continue to be played until it is stopped.</string>
+    <string name="eng_0_msg_ok_changes_capture_recording_progress">You are recording audio. The audio will continue to be recorded until it is stopped.</string>
+    <string name="eng_0_msg_ok_changes_navigator_recording_progress">You are recording audio. Stop the recording to play the selected audio document.</string>
+    <string name="eng_0_recording_paused">Recording Is Paused</string>
+    <string name="eng_0_playback_paused">Playback Is Paused</string>
+    <string name="eng_0_playback_progress">Playback In Progress</string>
+    <string name="eng_0_recording_progress">Recording In Progress</string>
+    <string name="eng_0_ok">OK</string>
+    <string name="eng_0_confirm_deletion">Confirm Deletion</string>
+    <string name="eng_0_msg_delete_case">Are you sure you want to delete this case?</string>
+    <string name="eng_0_msg_delete_member">Are you sure you want to delete this member?</string>
+    <string name="eng_0_msg_delete_document">Are you sure you want to delete this document?</string>
+    <string name="eng_0_msg_delete_this">Are you sure you want to delete this %s?</string>
+    <string name="eng_0_invalid_state_case">State or Local Case Number is required to save case information.</string>
+    <string name="eng_0_invalid_state_member">First and Last Name(s) are required to save member information.</string>
+    <string name="eng_0_invalid_state">Information Required</string>
+    
+    <string name="eng_0_msg_empty_list_default">None</string>
+    
+    <string name="eng_0_msg_empty_list_event_types">No event types found</string>
+    <string name="eng_0_msg_empty_list_cases">No cases found for this event type</string>
+    <string name="eng_0_msg_empty_list_members">No members found for case</string>
+    <string name="eng_0_msg_empty_list_narratives">No narratives found for case</string>
+    <string name="eng_0_msg_empty_list_documents">No documents found for member</string>
+    <string name="eng_0_msg_empty_list_forms">No forms found for member</string>
+    <string name="eng_0_msg_empty_list_diverted_forms">No diverted forms found</string>
+    <string name="eng_0_msg_empty_list_notes">No notes found for member</string>
+    <string name="eng_0_navigate">Navigate</string>
+    
+    
+    <string name="eng_0_form_menu_title_seekbar">Pages...</string>
+    <string name="eng_0_form_menu_title_sync">Sync</string>
+    <string name="eng_0_form_menu_title_pen_weight_icon">Set Pen Weight</string>
+    <string name="eng_0_form_menu_title_sign">Sign</string>
+    <string name="eng_0_form_menu_title_email">Email</string>
+    <string name="eng_0_form_menu_title_print">Print</string>
+    <string name="eng_0_form_menu_title_delete">Delete Form</string>
+    <string name="eng_0_form_menu_title_save">Save</string>
+    
+    
+    <string name="eng_0_diverted_items_label">Diverted Items</string>
+    <string name="eng_0_audio_toast_warning">One Minute of Audio Recording Left</string>
 
 </resources>

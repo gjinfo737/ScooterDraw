@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="utf-8"?>
+<copilot.module.people.EditMemberView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/people_member_scrollview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true" >
+
+        <requestFocus />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/people_name_upper_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/people_ssn_text_view"
+                    android:layout_width="@dimen/people_member_text_view_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_ssn_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_text_view_margin_left"
+                    android:text="SSN" >
+
+                    <requestFocus />
+                </TextView>
+
+                <copilot.module.people.util.SsnEditTextMask
+                    android:id="@+id/people_ssn_edit_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/people_member_edit_text_margin_left"
+                    android:layout_marginRight="@dimen/people_member_edit_text_margin_right"
+                    android:layout_toRightOf="@+id/people_ssn_text_view"
+                    android:hint="###-##-####"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/people_first_name_text_view"
+                    android:layout_width="@dimen/people_member_text_view_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_first_name_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_text_view_margin_left"
+                    android:text="First Name" />
+
+                <EditText
+                    android:id="@+id/people_first_name_edit_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/people_ssn_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_edit_text_margin_left"
+                    android:layout_marginRight="@dimen/people_member_edit_text_margin_right"
+                    android:layout_toRightOf="@+id/people_first_name_text_view"
+                    android:hint=""
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/people_middle_name_text_view"
+                    android:layout_width="@dimen/people_member_text_view_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_middle_name_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_text_view_margin_left"
+                    android:text="Middle" />
+
+                <EditText
+                    android:id="@+id/people_middle_name_edit_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/people_first_name_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_edit_text_margin_left"
+                    android:layout_marginRight="@dimen/people_member_edit_text_margin_right"
+                    android:layout_toRightOf="@+id/people_middle_name_text_view"
+                    android:hint=""
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/people_last_name_text_view"
+                    android:layout_width="@dimen/people_member_text_view_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_last_name_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_text_view_margin_left"
+                    android:text="Last Name" />
+
+                <EditText
+                    android:id="@+id/people_last_name_edit_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/people_middle_name_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_edit_text_margin_left"
+                    android:layout_marginRight="@dimen/people_member_edit_text_margin_right"
+                    android:layout_toRightOf="@+id/people_last_name_text_view"
+                    android:hint=""
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/people_suffix_text_view"
+                    android:layout_width="@dimen/people_member_text_view_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_suffix_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_text_view_margin_left"
+                    android:text="Suffix" />
+
+                <EditText
+                    android:id="@+id/people_suffix_edit_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/people_last_name_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_edit_text_margin_left"
+                    android:layout_marginRight="@dimen/people_member_edit_text_margin_right"
+                    android:layout_toRightOf="@+id/people_suffix_text_view"
+                    android:hint=""
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/people_birth_date_text_view"
+                    android:layout_width="@dimen/people_member_text_view_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_birth_date_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_text_view_margin_left"
+                    android:text="Birth Date" />
+
+                <EditText
+                    android:id="@+id/people_birth_date_edit_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/people_suffix_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_edit_text_margin_left"
+                    android:layout_marginRight="@dimen/people_member_edit_text_margin_right"
+                    android:layout_toRightOf="@+id/people_birth_date_text_view"
+                    android:hint=""
+                    android:singleLine="true" />
+                <!--
+                    <ImageButton android:id="@+id/people_name_button_down" android:src="@drawable/people_arrow_down" 
+					android:background="@android:color/transparent" android:layout_alignParentRight="true" 
+					android:layout_alignParentBottom="true" android:layout_marginRight="@dimen/people_member_button_margin_right" 
+					android:layout_marginBottom="@dimen/people_member_button_margin_bottom" android:layout_width="wrap_content" 
+					android:layout_height="wrap_content" />
+                -->
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/people_name_lower_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/people_birth_place_text_view"
+                    android:layout_width="@dimen/people_member_text_view_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_birth_place_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_text_view_margin_left"
+                    android:text="Birth Place" />
+
+                <EditText
+                    android:id="@+id/people_birth_place_edit_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/people_birth_date_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_edit_text_margin_left"
+                    android:layout_marginRight="@dimen/people_member_edit_text_margin_right"
+                    android:layout_toRightOf="@+id/people_birth_place_text_view"
+                    android:hint=""
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/people_gender_text_view"
+                    android:layout_width="@dimen/people_member_text_view_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_gender_spinner"
+                    android:layout_marginLeft="@dimen/people_member_text_view_margin_left"
+                    android:text="Gender" />
+
+                <EditText
+                    android:id="@+id/people_gender_edit_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/people_birth_place_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_edit_text_margin_left"
+                    android:layout_marginRight="@dimen/people_member_edit_text_margin_right"
+                    android:layout_toRightOf="@+id/people_gender_text_view"
+                    android:hint=""
+                    android:singleLine="true"
+                    android:visibility="gone" />
+
+                <Spinner
+                    android:id="@+id/people_gender_spinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/people_birth_place_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_edit_text_margin_left"
+                    android:layout_marginRight="@dimen/people_member_edit_text_margin_right"
+                    android:layout_toRightOf="@+id/people_gender_text_view" />
+
+                <TextView
+                    android:id="@+id/people_education_text_view"
+                    android:layout_width="@dimen/people_member_text_view_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_education_edit_spinner"
+                    android:layout_marginLeft="@dimen/people_member_text_view_margin_left"
+                    android:text="Education" />
+
+                <Spinner
+                    android:id="@+id/people_education_edit_spinner"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/people_gender_spinner"
+                    android:layout_marginLeft="@dimen/people_member_edit_text_margin_left"
+                    android:layout_marginRight="@dimen/people_member_edit_text_margin_right"
+                    android:layout_toRightOf="@+id/people_education_text_view"
+                    android:hint=""
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/people_school_attended_text_view"
+                    android:layout_width="@dimen/people_member_text_view_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_school_attended_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_text_view_margin_left"
+                    android:text="School Attended" />
+
+                <EditText
+                    android:id="@+id/people_school_attended_edit_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/people_education_edit_spinner"
+                    android:layout_marginLeft="@dimen/people_member_edit_text_margin_left"
+                    android:layout_marginRight="@dimen/people_member_edit_text_margin_right"
+                    android:layout_toRightOf="@+id/people_school_attended_text_view"
+                    android:hint=""
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/people_state_id_text_view"
+                    android:layout_width="@dimen/people_member_text_view_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_state_id_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_text_view_margin_left"
+                    android:text="State ID" />
+
+                <copilot.module.people.util.StateIdEditTextMask
+                    android:id="@+id/people_state_id_edit_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/people_school_attended_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_edit_text_margin_left"
+                    android:layout_marginRight="@dimen/people_member_edit_text_margin_right"
+                    android:layout_toRightOf="@+id/people_state_id_text_view"
+                    android:hint=""
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/people_sis_number_text_view"
+                    android:layout_width="@dimen/people_member_text_view_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_sis_number_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_text_view_margin_left"
+                    android:text="SIS Number" />
+
+                <copilot.module.people.util.SISEditTextMask
+                    android:id="@+id/people_sis_number_edit_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/people_state_id_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_edit_text_margin_left"
+                    android:layout_marginRight="@dimen/people_member_edit_text_margin_right"
+                    android:layout_toRightOf="@+id/people_sis_number_text_view"
+                    android:hint=""
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/people_maiden_name_text_view"
+                    android:layout_width="@dimen/people_member_text_view_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_maiden_name_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_text_view_margin_left"
+                    android:text="Maiden Name" />
+
+                <EditText
+                    android:id="@+id/people_maiden_name_edit_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/people_sis_number_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_edit_text_margin_left"
+                    android:layout_marginRight="@dimen/people_member_edit_text_margin_right"
+                    android:layout_toRightOf="@+id/people_maiden_name_text_view"
+                    android:hint=""
+                    android:singleLine="true" />
+                <!--
+                    <ImageButton android:id="@+id/people_name_button_up" android:src="@drawable/people_arrow_up" 
+					android:background="@android:color/transparent" android:layout_alignParentRight="true" 
+					android:layout_alignParentBottom="true" android:layout_marginRight="@dimen/people_member_button_margin_right" 
+					android:layout_marginBottom="@dimen/people_member_button_margin_bottom" android:layout_width="wrap_content" 
+					android:layout_height="wrap_content" />
+                -->
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/people_line1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="20dp"
+                android:background="#666666" />
+
+            <RelativeLayout
+                android:id="@+id/people_phone_upper_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/people_phone1_text_view"
+                    android:layout_width="@dimen/people_member_text_view_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_phone1_name_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_text_view_margin_left"
+                    android:focusable="false"
+                    android:text="Phone" />
+
+                <EditText
+                    android:id="@+id/people_phone1_name_edit_text"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/people_member_edit_text_margin_left"
+                    android:layout_toRightOf="@+id/people_phone1_text_view"
+                    android:focusable="false"
+                    android:hint=""
+                    android:singleLine="true" />
+
+                <copilot.module.people.util.PhoneEditTextMask
+                    android:id="@+id/people_phone1_number_edit_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_phone1_name_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_field_gap_width"
+                    android:layout_marginRight="@dimen/people_member_edit_text_margin_right"
+                    android:layout_toRightOf="@+id/people_phone1_name_edit_text"
+                    android:hint="###-###-####"
+                    android:inputType="phone" />
+                <!--
+                    <ImageButton android:id="@+id/people_phone_button_down" android:src="@drawable/people_arrow_down" 
+					android:background="@android:color/transparent" android:layout_alignParentRight="true" 
+					android:layout_alignParentBottom="true" android:layout_marginRight="@dimen/people_member_button_margin_right" 
+					android:layout_marginBottom="@dimen/people_member_button_margin_bottom" android:layout_width="wrap_content" 
+					android:layout_height="wrap_content" />
+                -->
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/people_phone_lower_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/people_phone2_text_view"
+                    android:layout_width="@dimen/people_member_text_view_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_phone2_name_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_text_view_margin_left"
+                    android:focusable="false"
+                    android:text="" />
+
+                <EditText
+                    android:id="@+id/people_phone2_name_edit_text"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/people_member_edit_text_margin_left"
+                    android:layout_toRightOf="@+id/people_phone2_text_view"
+                    android:focusable="false"
+                    android:hint=""
+                    android:singleLine="true" />
+
+                <copilot.module.people.util.PhoneEditTextMask
+                    android:id="@+id/people_phone2_number_edit_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_phone2_name_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_field_gap_width"
+                    android:layout_marginRight="@dimen/people_member_edit_text_margin_right"
+                    android:layout_toRightOf="@+id/people_phone2_name_edit_text"
+                    android:hint="###-###-####"
+                    android:inputType="phone" />
+                <!--
+                    <ImageButton android:id="@+id/people_phone_button_up" android:src="@drawable/people_arrow_up" 
+					android:background="@android:color/transparent" android:layout_alignParentRight="true" 
+					android:layout_alignParentBottom="true" android:layout_marginRight="@dimen/people_member_button_margin_right" 
+					android:layout_marginBottom="@dimen/people_member_button_margin_bottom" android:layout_width="wrap_content" 
+					android:layout_height="wrap_content" />
+                -->
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/people_line2"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="20dp"
+                android:background="#666666" />
+
+            <RelativeLayout
+                android:id="@+id/people_address_upper_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/people_physical_addr1_text_view"
+                    android:layout_width="@dimen/people_member_text_view_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_physical_addr1_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_text_view_margin_left"
+                    android:text="Physical Address" />
+
+
+                <EditText
+                    android:id="@+id/people_physical_addr1_edit_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/people_member_edit_text_margin_left"
+                    android:layout_marginRight="@dimen/people_member_edit_text_margin_right"
+                    android:layout_toRightOf="@+id/people_physical_addr1_text_view"
+                    android:hint="Address Line 1"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/people_physical_addr2_text_view"
+                    android:layout_width="@dimen/people_member_text_view_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_physical_addr2_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_text_view_margin_left"
+                    android:text="" />
+
+                <EditText
+                    android:id="@+id/people_physical_addr2_edit_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/people_physical_addr1_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_edit_text_margin_left"
+                    android:layout_marginRight="@dimen/people_member_edit_text_margin_right"
+                    android:layout_toRightOf="@+id/people_physical_addr2_text_view"
+                    android:hint="Address Line 2"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/people_physical_addr3_text_view"
+                    android:layout_width="@dimen/people_member_text_view_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_physical_addr3_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_text_view_margin_left"
+                    android:text="" />
+
+                <EditText
+                    android:id="@+id/people_physical_addr3_edit_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/people_physical_addr2_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_edit_text_margin_left"
+                    android:layout_marginRight="@dimen/people_member_edit_text_margin_right"
+                    android:layout_toRightOf="@+id/people_physical_addr3_text_view"
+                    android:hint="Address Line 3"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/people_physical_city_text_view"
+                    android:layout_width="@dimen/people_member_text_view_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_physical_city_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_text_view_margin_left"
+                    android:text="" />
+
+                <EditText
+                    android:id="@+id/people_physical_city_edit_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/people_physical_addr3_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_edit_text_margin_left"
+                    android:layout_marginRight="@dimen/people_member_edit_text_margin_right"
+                    android:layout_toRightOf="@+id/people_physical_city_text_view"
+                    android:hint="City"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/people_physical_state_text_view"
+                    android:layout_width="@dimen/people_member_text_view_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_physical_zip4_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_text_view_margin_left"
+                    android:text="" />
+
+                <copilot.module.people.util.Zip4EditTextMask
+                    android:id="@+id/people_physical_zip4_edit_text"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@+id/people_physical_city_edit_text"
+                    android:layout_below="@+id/people_physical_city_edit_text"
+                    android:hint="Zip+4"
+                    android:inputType="phone"
+                    android:singleLine="true" />
+
+                <copilot.module.people.util.ZipEditTextMask
+                    android:id="@+id/people_physical_zip_edit_text"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_physical_zip4_edit_text"
+                    android:layout_marginRight="@dimen/people_member_field_gap_width"
+                    android:layout_toLeftOf="@+id/people_physical_zip4_edit_text"
+                    android:hint="Zip"
+                    android:inputType="phone"
+                    android:singleLine="true" />
+
+                <Spinner
+                    android:id="@+id/people_physical_state_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_physical_zip4_edit_text"
+                    android:layout_alignLeft="@+id/people_physical_city_edit_text"
+                    android:layout_marginRight="@dimen/people_member_field_gap_width"
+                    android:layout_toLeftOf="@+id/people_physical_zip_edit_text" />
+
+                <EditText
+                    android:id="@+id/people_physical_state_edit_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_physical_zip4_edit_text"
+                    android:layout_alignLeft="@+id/people_physical_city_edit_text"
+                    android:layout_marginRight="@dimen/people_member_field_gap_width"
+                    android:layout_toLeftOf="@+id/people_physical_zip_edit_text"
+                    android:hint="State"
+                    android:visibility="gone" />
+                <!--
+                    <ImageButton android:id="@+id/people_address_button_down" android:src="@drawable/people_arrow_down" 
+					android:background="@android:color/transparent" android:layout_alignParentRight="true" 
+					android:layout_alignParentBottom="true" android:layout_marginRight="@dimen/people_member_button_margin_right" 
+					android:layout_marginBottom="@dimen/people_member_button_margin_bottom" android:layout_width="wrap_content" 
+					android:layout_height="wrap_content" />
+                -->
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/people_address_lower_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/people_mailing_addr1_text_view"
+                    android:layout_width="@dimen/people_member_text_view_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_mailing_addr1_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_text_view_margin_left"
+                    android:text="Mailing Address" />
+
+               
+                <EditText
+                    android:id="@+id/people_mailing_addr1_edit_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/people_member_edit_text_margin_left"
+                    android:layout_marginRight="@dimen/people_member_edit_text_margin_right"
+                    android:layout_toRightOf="@+id/people_mailing_addr1_text_view"
+                    android:hint="Address Line 1"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/people_mailing_addr2_text_view"
+                    android:layout_width="@dimen/people_member_text_view_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_mailing_addr2_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_text_view_margin_left"
+                    android:text="" />
+
+                <EditText
+                    android:id="@+id/people_mailing_addr2_edit_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/people_mailing_addr1_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_edit_text_margin_left"
+                    android:layout_marginRight="@dimen/people_member_edit_text_margin_right"
+                    android:layout_toRightOf="@+id/people_mailing_addr2_text_view"
+                    android:hint="Address Line 2"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/people_mailing_addr3_text_view"
+                    android:layout_width="@dimen/people_member_text_view_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_mailing_addr3_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_text_view_margin_left"
+                    android:text="" />
+
+                <EditText
+                    android:id="@+id/people_mailing_addr3_edit_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/people_mailing_addr2_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_edit_text_margin_left"
+                    android:layout_marginRight="@dimen/people_member_edit_text_margin_right"
+                    android:layout_toRightOf="@+id/people_mailing_addr3_text_view"
+                    android:hint="Address Line 3"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/people_mailing_city_text_view"
+                    android:layout_width="@dimen/people_member_text_view_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_mailing_city_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_text_view_margin_left"
+                    android:text="" />
+
+                <EditText
+                    android:id="@+id/people_mailing_city_edit_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/people_mailing_addr3_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_edit_text_margin_left"
+                    android:layout_marginRight="@dimen/people_member_edit_text_margin_right"
+                    android:layout_toRightOf="@+id/people_mailing_city_text_view"
+                    android:hint="City"
+                    android:singleLine="true" />
+
+                <TextView
+                    android:id="@+id/people_mailing_state_text_view"
+                    android:layout_width="@dimen/people_member_text_view_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_mailing_state_edit_text"
+                    android:layout_marginLeft="@dimen/people_member_text_view_margin_left"
+                    android:text="" />
+
+                <copilot.module.people.util.Zip4EditTextMask
+                    android:id="@+id/people_mailing_zip4_edit_text"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@+id/people_mailing_city_edit_text"
+                    android:layout_below="@+id/people_mailing_city_edit_text"
+                    android:hint="Zip+4"
+                    android:inputType="phone"
+                    android:singleLine="true" />
+
+                <copilot.module.people.util.ZipEditTextMask
+                    android:id="@+id/people_mailing_zip_edit_text"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_mailing_zip4_edit_text"
+                    android:layout_marginRight="@dimen/people_member_field_gap_width"
+                    android:layout_toLeftOf="@+id/people_mailing_zip4_edit_text"
+                    android:hint="Zip"
+                    android:inputType="phone"
+                    android:singleLine="true" />
+
+                <EditText
+                    android:id="@+id/people_mailing_state_edit_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_mailing_zip4_edit_text"
+                    android:layout_alignLeft="@+id/people_mailing_city_edit_text"
+                    android:layout_marginRight="@dimen/people_member_field_gap_width"
+                    android:layout_toLeftOf="@+id/people_mailing_zip_edit_text"
+                    android:hint="State"
+                    android:visibility="gone" />
+
+                <Spinner
+                    android:id="@+id/people_mailing_state_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/people_mailing_zip4_edit_text"
+                    android:layout_alignLeft="@+id/people_mailing_city_edit_text"
+                    android:layout_marginRight="@dimen/people_member_field_gap_width"
+                    android:layout_toLeftOf="@+id/people_mailing_zip_edit_text" />
+                <!--
+                    <ImageButton android:id="@+id/people_address_button_up" android:src="@drawable/people_arrow_up" 
+					android:background="@android:color/transparent" android:layout_alignParentRight="true" 
+					android:layout_alignParentBottom="true" android:layout_marginRight="@dimen/people_member_button_margin_right" 
+					android:layout_marginBottom="@dimen/people_member_button_margin_bottom" android:layout_width="wrap_content" 
+					android:layout_height="wrap_content" />
+                -->
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</copilot.module.people.EditMemberView>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:orientation="vertical" android:id="@+id/drawableoneline">
+    <ImageView android:src="@drawable/ulistviews_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/drawableoneline_imageView1"></ImageView>
+	<TextView android:text="TextView" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="25dp" android:id="@+id/drawableoneline_textView1"></TextView>
+
+</LinearLayout>

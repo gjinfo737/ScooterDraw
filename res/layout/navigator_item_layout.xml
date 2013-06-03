@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity" >
+
+    <ImageView
+        android:id="@+id/item_imageView_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/icon" />
+	<ImageView
+		android:id="@+id/item_imageView_case_head_icon"
+		android:layout_width="73dp"
+		android:paddingLeft="32dp"
+		android:paddingTop="13dp"
+		android:layout_height="52dp"
+		android:layout_centerHorizontal="true"
+		android:layout_alignBottom="@+id/item_imageView_icon"
+		android:src="@drawable/navigator_case_head_violator_icon"
+	></ImageView>
+    <TextView
+        android:id="@+id/item_textView_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_imageView_icon"
+          android:layout_centerHorizontal="true"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/item_textView_subTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/item_textView_title"
+           android:layout_centerHorizontal="true"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</RelativeLayout>

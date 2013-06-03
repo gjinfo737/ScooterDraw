@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<copilot.module.transcription.TranscriptionMenu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingTop="-200dp"
+    android:background="@drawable/copilot_action_bar_background" >
+
+    <TextView
+        android:id="@+id/lay_textview_time_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_toRightOf="@+id/lay_copilot_title"
+        android:layout_below="@+id/lay_seekBar"
+        android:paddingLeft="40dp"
+        android:text="00:00"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <SeekBar
+        android:id="@+id/lay_seekBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="40dp"
+        android:paddingRight="20dp"
+        android:layout_toLeftOf="@+id/lay_imageButton_rewind"
+        android:layout_toRightOf="@+id/lay_copilot_title" />
+
+    <TextView
+        android:id="@+id/lay_textview_time_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_toLeftOf="@+id/lay_imageButton_rewind"
+        android:layout_below="@+id/lay_seekBar"
+        android:paddingRight="20dp"
+        android:text="00:00"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ImageButton
+        android:id="@+id/lay_imageButton_rewind"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_toLeftOf="@+id/lay_imageButton_skipbackwardandfast"
+        android:src="@drawable/transcription_rewind" />
+
+    <ImageButton
+        android:id="@+id/lay_imageButton_skipbackwardandfast"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_toLeftOf="@+id/lay_btn_play"
+        android:src="@drawable/transcription_jump_back" />
+
+    <ImageButton
+        android:id="@+id/lay_btn_play"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_toLeftOf="@+id/lay_imageButton_skipforwardandfast"
+        android:src="@drawable/transcription_play" />
+
+    <ImageButton
+        android:id="@+id/lay_imageButton_skipforwardandfast"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_toLeftOf="@+id/lay_imageButton_fastforward"
+        android:src="@drawable/transcription_jump_forward" />
+
+    <ImageButton
+        android:id="@+id/lay_imageButton_fastforward"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_toLeftOf="@+id/lay_delete"
+        android:src="@drawable/transcription_forward" />
+
+    <ImageButton
+        android:id="@+id/lay_delete"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_toLeftOf="@+id/lay_save"
+        android:src="@drawable/theme_std_menu_delete" />
+
+    <ImageButton
+        android:id="@+id/lay_save"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/theme_std_menu_save" />
+
+    <ImageButton
+        android:id="@+id/lay_copilotimage"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:src="@drawable/icon" />
+
+    <TextView
+        android:id="@+id/lay_copilot_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/lay_copilotimage"
+        android:text="CoPilot"
+        android:textSize="18dp" />
+
+</copilot.module.transcription.TranscriptionMenu>

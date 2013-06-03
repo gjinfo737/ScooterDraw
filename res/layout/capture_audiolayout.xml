@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/capture_audio_main_relativelayout"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	<RelativeLayout
+		android:id="@+id/capture_audio_inner_relativelayout"
+		android:layout_width="500dp"
+		android:layout_height="400dp"
+		android:layout_centerInParent="true">
+		<TextView
+			android:text="Title"
+			android:id="@+id/capture_audio_title_textview"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="24dp"
+			android:layout_alignParentTop="true"
+			android:layout_alignParentLeft="true"
+			android:layout_marginTop="65dp" android:layout_marginLeft="80dp"></TextView>
+		<TextView
+			android:text=""
+			android:id="@+id/capture_audio_playtime_textview"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:paddingBottom="55dp"
+			android:textSize="85dp"
+			android:layout_centerInParent="true"></TextView>
+		<LinearLayout
+			android:id="@+id/capture_audio_inner_linearlayout"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_centerHorizontal="true"
+			android:layout_alignParentBottom="true"
+			android:gravity="center"
+			android:orientation="horizontal"
+			android:layout_marginBottom="65dp">
+		</LinearLayout>
+	</RelativeLayout>
+
+	<ProgressBar
+	    android:id="@+id/saveFileProgressBar"
+	    style="?android:attr/progressBarStyleLarge"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content" android:layout_centerInParent="true"/>
+
+</RelativeLayout>

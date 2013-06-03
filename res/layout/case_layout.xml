@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<copilot.module.mcase.EditCaseView
+	android:id="@+id/case_scrollview"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<RelativeLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent">
+
+		<TextView
+			android:id="@+id/case_state_case_number_text_view"
+			android:text="State Case Number"
+			android:layout_marginLeft="@dimen/case_text_view_margin_left"
+			android:layout_alignBaseline="@+id/case_state_case_number_edit_text"
+			android:layout_width="@dimen/case_text_view_width"
+			android:layout_height="wrap_content" />
+		<EditText
+			android:id="@+id/case_state_case_number_edit_text"
+			android:layout_toRightOf="@+id/case_state_case_number_text_view"
+			android:layout_marginLeft="@dimen/case_edit_text_margin_left"
+			android:layout_marginRight="@dimen/case_edit_text_margin_right"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:hint="" />
+
+		<TextView
+			android:id="@+id/case_local_case_number_text_view"
+			android:text="Local Case Number"
+			android:layout_marginLeft="@dimen/case_text_view_margin_left"
+			android:layout_alignBaseline="@+id/case_local_case_number_edit_text"
+			android:layout_width="@dimen/case_text_view_width"
+			android:layout_height="wrap_content" />
+		<EditText
+			android:id="@+id/case_local_case_number_edit_text"
+			android:layout_toRightOf="@+id/case_local_case_number_text_view"
+			android:layout_below="@+id/case_state_case_number_edit_text"
+			android:layout_marginLeft="@dimen/case_edit_text_margin_left"
+			android:layout_marginRight="@dimen/case_edit_text_margin_right"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:hint="" />
+
+		<TextView
+			android:id="@+id/case_case_worker_text_view"
+			android:text="Case Worker"
+			android:layout_marginLeft="@dimen/case_text_view_margin_left"
+			android:layout_alignBaseline="@+id/case_case_worker_spinner"
+			android:layout_width="@dimen/case_text_view_width"
+			android:layout_height="wrap_content" />
+		<copilot.utils.HintedSpinner
+			android:id="@+id/case_case_worker_spinner"
+			android:layout_toRightOf="@+id/case_case_worker_text_view"
+			android:layout_below="@+id/case_local_case_number_edit_text"
+			android:layout_marginLeft="@dimen/case_edit_text_margin_left"
+			android:layout_marginRight="@dimen/case_edit_text_margin_right"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content" />
+
+		<TextView
+			android:id="@+id/case_program_type_text_view"
+			android:text="Program Type"
+			android:layout_marginLeft="@dimen/case_text_view_margin_left"
+			android:layout_alignBaseline="@+id/case_program_type_spinner"
+			android:layout_width="@dimen/case_text_view_width"
+			android:layout_height="wrap_content" />
+		<copilot.utils.HintedSpinner
+			android:id="@+id/case_program_type_spinner"
+			android:layout_toRightOf="@+id/case_program_type_text_view"
+			android:layout_below="@+id/case_case_worker_spinner"
+			android:layout_marginLeft="@dimen/case_edit_text_margin_left"
+			android:layout_marginRight="@dimen/case_edit_text_margin_right"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:hint="" />
+
+		<TextView
+			android:id="@+id/case_case_head_text_view"
+			android:text="Case Head"
+			android:layout_marginLeft="@dimen/case_text_view_margin_left"
+			android:layout_alignBaseline="@+id/case_case_head_spin"
+			android:layout_width="@dimen/case_text_view_width"
+			android:layout_height="wrap_content" />
+		<copilot.utils.HintedSpinner
+			android:id="@+id/case_case_head_spin"
+			android:layout_toRightOf="@+id/case_case_head_text_view"
+			android:layout_below="@+id/case_program_type_spinner"
+			android:layout_marginLeft="@dimen/case_edit_text_margin_left"
+			android:layout_marginRight="@dimen/case_edit_text_margin_right"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			/>
+
+	</RelativeLayout>
+</copilot.module.mcase.EditCaseView>

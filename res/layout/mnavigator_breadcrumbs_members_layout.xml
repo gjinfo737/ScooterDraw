@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<copilot.module.breadcrumbs.layout.MBreadcrumbsTitleLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:id="@+id/mnavigator_members_wrapper">
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/mnavigator_members_linearLayout"
+		android:orientation="vertical"
+		android:gravity="center">
+		<ImageView
+			android:src="@drawable/theme_std_member_128x128"
+			android:id="@+id/mBreadcrumbsMembersLayoutIcon"
+			android:layout_width="@dimen/breadcrumb_icon_width"
+			android:layout_height="@dimen/breadcrumb_icon_height">
+		</ImageView>
+		<TextView
+			android:layout_width="wrap_content"
+			android:id="@+id/mBreadcrumbsMembersLayoutTextView"
+			android:text="Members"
+			android:layout_height="wrap_content">
+		</TextView>
+		<TextView
+			android:layout_height="wrap_content"
+			android:text="333-555-8888"
+			android:id="@+id/mBreadcrumbsMembersSSNTextView"
+			android:gravity="center"
+			android:layout_width="wrap_content"></TextView>
+	</LinearLayout>
+</copilot.module.breadcrumbs.layout.MBreadcrumbsTitleLayout>

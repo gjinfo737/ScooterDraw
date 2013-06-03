@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="500dp"
+	android:layout_height="600dp"
+	android:paddingLeft="20dp"
+	android:paddingTop="20dp"
+	android:paddingRight="20dp"
+	android:paddingBottom="20dp">
+	<ImageView
+		android:layout_height="wrap_content"
+		android:src="@drawable/about_copilot_icon128x128"
+		android:id="@+id/about_iconImageView"
+		android:layout_width="wrap_content"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentLeft="true"
+		android:layout_marginLeft="10dp"
+		android:layout_marginTop="10dp"></ImageView>
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:text="Compass CoPilot"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:id="@+id/about_titleTextView"
+		android:layout_alignTop="@+id/about_iconImageView"
+		android:layout_toRightOf="@+id/about_iconImageView"
+		android:layout_marginTop="10dp"
+		android:layout_marginLeft="45dp"></TextView>
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:text="by Northwoods Consulting Partners"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:id="@+id/about_subtitleTextView"
+		android:layout_below="@+id/about_titleTextView"
+		android:layout_alignLeft="@+id/about_titleTextView"
+		android:layout_marginTop="8dp"></TextView>
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:text="Version 9.8.7"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:gravity="center"
+		android:id="@+id/about_versionTextView"
+		android:layout_below="@+id/about_titleTextView"
+		android:layout_alignLeft="@+id/about_titleTextView"
+		android:layout_alignRight="@+id/about_titleTextView"
+		android:layout_marginTop="70dp"></TextView>
+<!--	<TextView
+		android:layout_height="wrap_content"
+		android:rotation="-15"
+		android:layout_width="wrap_content"
+		android:text="Yay! Friendship!"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:textColor="#FFFF00"
+		android:gravity="right"
+		android:id="@+id/about_friendshipTextView"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentRight="true"
+		android:layout_marginTop="125dp"></TextView>-->
+	<TextView
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:text="Copyright ©2011 by Northwoods Consulting Partners, Inc."
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:gravity="center"
+		android:id="@+id/about_copyrightTextView"
+		android:layout_below="@+id/about_titleTextView"
+		android:layout_marginTop="140dp"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentRight="true"></TextView>
+</RelativeLayout>

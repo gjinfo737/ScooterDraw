@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!-- Replaced these values when removed buttons. JLW 11/2011
+	<dimen name="people_member_text_view_margin_left">100dp</dimen>
+	<dimen name="people_member_text_view_width">110dp</dimen>
+	<dimen name="people_member_edit_text_margin_left">20dp</dimen>
+	<dimen name="people_member_edit_text_margin_right">200dp</dimen>
+-->
+	<dimen name="people_member_text_view_margin_left">100dp</dimen>
+	<dimen name="people_member_text_view_width">126dp</dimen>
+	<dimen name="people_member_edit_text_margin_left">20dp</dimen>
+	<dimen name="people_member_edit_text_margin_right">50dp</dimen>
+	<dimen name="people_member_field_gap_width">8dp</dimen>
+    <dimen name="people_member_button_margin_right">85dp</dimen>
+    <dimen name="people_member_button_margin_bottom">40dp</dimen>
+    
+	<dimen name="case_text_view_margin_left">100dp</dimen>
+	<dimen name="case_text_view_width">126dp</dimen>
+	<dimen name="case_edit_text_margin_left">20dp</dimen>
+	<dimen name="case_edit_text_margin_right">50dp</dimen>
+	
+	<dimen name="breadcrumb_icon_width">100dp</dimen>
+	<dimen name="breadcrumb_icon_height">100dp</dimen>
+	<dimen name="list_icon_width">32dp</dimen>
+	<dimen name="list_icon_height">32dp</dimen>
+	<dimen name="navigator_icon_width">100dp</dimen>
+	<dimen name="navigator_icon_height">100dp</dimen>
+</resources>
