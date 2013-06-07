@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.util.AttributeSet;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,27 +13,27 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.drawshtuff.drawer.R.drawable;
+import com.drawshtuff.drawer.R.id;
+import com.drawshtuff.drawer.R.layout;
 
 public class PaletteView extends Spinner {
 	private boolean open;
+	private LayoutInflater layoutInflater;
 
-	public PaletteView(Context context) {
+	public PaletteView(Context context, LayoutInflater layoutInflater) {
 		super(context);
-		initialize();
-	}
-
-	public PaletteView(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		initialize();
-	}
-
-	public PaletteView(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
+		this.layoutInflater = layoutInflater;
 		initialize();
 	}
 
 	private void initialize() {
 		setAdapter(new Spapter());
+		setOnFocusChangeListener(new OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				performClick();
+			}
+		});
 	}
 
 	@Override
@@ -79,34 +78,15 @@ public class PaletteView extends Spinner {
 
 		@Override
 		public View getDropDownView(int position, View convertView, ViewGroup parent) {
-
-			PaletteTool item = new PaletteTool(getContext(), drawable.forms_pen_weight_icon, "weight");
-
-			return item;
+			View view = layoutInflater.inflate(layout.form_pallete, null);
+			view.findViewById(id.palette_layout).setOnTouchListener(new OnTouchListener() {
+				@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					return true;
+				}
+			});
+			return view;
 		}
 	}
 
-	public class PaletteTool extends ImageView implements OnClickListener {
-
-		private String id;
-
-		public PaletteTool(Context context, int icon, String id) {
-			super(context);
-			setOnClickListener(this);
-			setImageResource(icon);
-			this.id = id;
-		}
-
-		@Override
-		public boolean onTouchEvent(MotionEvent event) {
-			performClick();
-			return true;
-		}
-
-		@Override
-		public void onClick(View v) {
-			Log.e("", "**" + id + "**");
-		}
-
-	}
 }

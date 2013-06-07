@@ -7,16 +7,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Spinner;
 
 import com.drawshtuff.drawer.R.drawable;
-import com.drawshtuff.drawer.R.layout;
 import com.drawshtuff.drawer.R.string;
 
 import copilot.app.data.RefForm;
 import copilot.app.data.RefForm.SyncState;
 import copilot.utils.views.inflators.EnableDependentLayoutResource;
+import copilot.utils.views.menu.PaletteView;
 
 public class FormActivityMenu {
 	public static final int BUTTON_PAGE_SEEKBAR_DIALOG_ID = -100;
@@ -64,8 +63,7 @@ public class FormActivityMenu {
 
 	private void addPenPalette(Menu menu) {
 		MenuItem palette = addNewMenuItem(menu, android.R.drawable.btn_star_big_on, BUTTON_PALETTE, string.eng_0_invalid_state, true);
-		View view = layoutInflater.inflate(layout.fom_pallete, null);
-		palette.setActionView(view);
+		palette.setActionView(new PaletteView(context, layoutInflater));
 		palette.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		palette.setVisible(true);
 

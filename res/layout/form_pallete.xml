@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/palette_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="25dp" >
+
+    <copilot.utils.views.menu.PaletteTool
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/forms_pen_weight_icon" >
+    </copilot.utils.views.menu.PaletteTool>
+
+    <copilot.utils.views.menu.PaletteTool
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/forms_sign_icon" >
+    </copilot.utils.views.menu.PaletteTool>
+
+    <copilot.utils.views.menu.PaletteTool
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/forms_sign_icon_selected" >
+    </copilot.utils.views.menu.PaletteTool>
+
+</LinearLayout>
