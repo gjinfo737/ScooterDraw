@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,8 +20,9 @@ import com.drawshtuff.drawer.copilot.SignatureView;
 import copilot.app.data.RefForm.SyncState;
 import copilot.module.forms.menu.FormActivityMenu;
 import copilot.module.forms.menu.IFormMenuItemStateProvider;
+import copilot.utils.views.bitmap.search.BitmapSearcher.IBitmapSearcherListener;
 
-public class Draw extends Activity implements IFormMenuItemStateProvider {
+public class Draw extends Activity implements IFormMenuItemStateProvider, IBitmapSearcherListener {
 
 	private RelativeLayout drawArea;
 	private SignatureView signatureView;
@@ -29,6 +31,8 @@ public class Draw extends Activity implements IFormMenuItemStateProvider {
 	private Button btnDraw;
 	private Button btnErase;
 	private Button btnHigh;
+	private Button btnSearch;
+	private boolean isSearching = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,7 @@ public class Draw extends Activity implements IFormMenuItemStateProvider {
 		btnDraw = (Button) findViewById(id.button_draw);
 		btnErase = (Button) findViewById(id.button_erase);
 		btnHigh = (Button) findViewById(id.button_high);
+		btnSearch = (Button) findViewById(id.button_search);
 		btnDraw.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				startDrawing();
@@ -70,9 +75,15 @@ public class Draw extends Activity implements IFormMenuItemStateProvider {
 
 			}
 		});
+		btnSearch.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				startSearch();
+			}
+		});
 		((Button) findViewById(id.button_clean)).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				signatureView.clean();
 			}
 		});
 		((Button) findViewById(id.button_black)).setOnClickListener(new OnClickListener() {
@@ -85,6 +96,27 @@ public class Draw extends Activity implements IFormMenuItemStateProvider {
 				signatureView.setColor(255, 0, 0);
 			}
 		});
+
+	}
+
+	private void startSearch() {
+		if (!isSearching) {
+			isSearching = true;
+			signatureView.search(this);
+		}
+	}
+
+	@Override
+	public void onComplete(boolean found) {
+		if (!isSearching)
+			return;
+		Log.i("", "found: " + found);
+		isSearching = false;
+		if (found) {
+			Toast.makeText(this, "Found!", Toast.LENGTH_LONG).show();
+		} else {
+			Toast.makeText(this, "Not found", Toast.LENGTH_LONG).show();
+		}
 	}
 
 	private void startDrawing() {
