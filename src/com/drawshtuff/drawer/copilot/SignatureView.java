@@ -149,10 +149,10 @@ public class SignatureView extends View {
 	public void search(IBitmapSearcherListener bitmapSearcherListener) {
 		final SignatureView view = this;
 		final Handler handler = new Handler();
-		new BitmapSearcher().searchBitmap(bitmap, bitmapSearcherListener, .01f, handler, new Runnable() {
+		new BitmapSearcher().searchBitmap(bitmap, bitmapSearcherListener, .02f, handler, new Runnable() {
 			@Override
 			public void run() {
-				// view.invalidate();
+				view.invalidate();
 			}
 		});
 	}
