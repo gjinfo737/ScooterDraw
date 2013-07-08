@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Handler;
+import android.util.Log;
 
 public class BitmapSearcher {
 
@@ -77,9 +78,50 @@ public class BitmapSearcher {
 		}
 	}
 
+	// private void combineOverlappingRects(List<Rect> rects) {
+	// Rect rectUnderTest = null;
+	// List<List<Rect>> overlappers = new ArrayList<List<Rect>>();
+	// int overLapperIndex = 0;
+	// rectUnderTest = rects.get(0);
+	// overlappers.add(new ArrayList<Rect>());
+	// overlappers.get(overLapperIndex).add(rectUnderTest);
+	// for (int i = 0; i < rects.size(); i++) {
+	// blah(rects, rectUnderTest, overlappers, overLapperIndex, i);
+	// }
+	//
+	// }
+	//
+	// private void blah(List<Rect> rects, Rect rectUnderTest, List<List<Rect>>
+	// overlappers, int overLapperIndex, int i) {
+	// for (int j = 0; j < rects.size(); j++) {
+	// if (i != j) {
+	// if (rectUnderTest.intersect(rects.get(j))) {
+	// overlappers.get(overLapperIndex).add(rects.get(j));
+	// rects.remove(rects.get(j));
+	// blah(rects, rects.get(j), overlappers, overLapperIndex, i);
+	// }
+	// }
+	// }
+	// }
+
+	public static Rect getSuperlativeBounds(Rect... bounds) {
+		Rect superlativeBounds = bounds[0];
+		for (int i = 1; i < bounds.length; i++) {
+			if (bounds[i].left < superlativeBounds.left)
+				superlativeBounds.left = bounds[i].left;
+			if (bounds[i].top < superlativeBounds.top)
+				superlativeBounds.top = bounds[i].top;
+			if (bounds[i].right > superlativeBounds.right)
+				superlativeBounds.right = bounds[i].right;
+			if (bounds[i].bottom > superlativeBounds.bottom)
+				superlativeBounds.bottom = bounds[i].bottom;
+		}
+		return superlativeBounds;
+	}
+
 	private void cropSearch(final Bitmap bitmap, final IBitmapSearcherListener bitmapSearcherListener, final float searchDensity) {
 		bitmapPixelGrabber = new BitmapPixelGrabber(bitmap);
-		final Cropper cropper = new Cropper(bitmapPixelGrabber, bitmap);
+		final Cropper cropper = new Cropper(bitmapPixelGrabber);
 		excludedRects = new ArrayList<Rect>();
 
 		final int width = bitmap.getWidth();
@@ -102,7 +144,7 @@ public class BitmapSearcher {
 						if (hitPoint != null) {
 							excludedRects.add(cropper.cropRegion(hitPoint, bitmap));
 						} else {
-							onComplete(false);
+							onCompleteCrop();
 							stop = true;
 						}
 					}
@@ -112,6 +154,64 @@ public class BitmapSearcher {
 
 		}).start();
 
+	}
+
+	private void onCompleteCrop() {
+		Log.e("", "!!!!!!!");
+		mergeOverlappingRects(excludedRects);
+		Log.e("excludedRects.size()", excludedRects.size() + "");
+
+		for (Rect r : excludedRects) {
+			Log.e("excludedRects", r.toString());
+			bitmapPixelGrabber.drawBox(r, Color.rgb(224, 119, 27), 100);
+		}
+		handler.post(new Runnable() {
+			@Override
+			public void run() {
+				bitmapSearcherListener.onComplete(true);
+			}
+		});
+	}
+
+	private void mergeOverlappingRects(List<Rect> rects) {
+		Rect merged = null;
+		int removeIndex1 = -1;
+		int removeIndex2 = -1;
+		for (int i = 0; i < rects.size(); i++) {
+			for (int j = 0; j < rects.size(); j++) {
+				if (i != j) {
+					if (overLaps(rects.get(i), rects.get(j))) {
+						merged = getSuperlativeBounds(rects.get(i), rects.get(j));
+						removeIndex1 = i;
+						removeIndex2 = j;
+						break;
+					}
+				}
+			}
+			if (merged != null)
+				break;
+		}
+		if (merged != null) {
+			if (removeIndex1 < removeIndex2) {
+				rects.remove(removeIndex2);
+				rects.remove(removeIndex1);
+			} else {
+				rects.remove(removeIndex1);
+				rects.remove(removeIndex2);
+			}
+			rects.add(merged);
+			mergeOverlappingRects(rects);
+		}
+	}
+
+	private boolean overLaps(Rect rect, Rect otherRect) {
+		Rect r1 = cloneRect(rect);
+		Rect r2 = cloneRect(otherRect);
+		return r1.intersect(r2);
+	}
+
+	private Rect cloneRect(Rect rect) {
+		return new Rect(rect.left, rect.top, rect.right, rect.bottom);
 	}
 
 	private void search(Bitmap bitmap, final IBitmapSearcherListener bitmapSearcherListener, final float searchDensity) {

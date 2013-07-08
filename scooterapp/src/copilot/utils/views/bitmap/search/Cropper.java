@@ -11,15 +11,13 @@ public class Cropper {
 	private static final int MAX_WHITE_COUNT = 6;
 	private static final float ANGLE_DENSITY = (float) (Math.PI / 100f);
 	private final BitmapPixelGrabber bitmapPixelGrabber;
-	private final Bitmap bitmap;
 
 	public enum Quadrant {
 		FIRST, SECOND, THIRD, FOURTH;
 	}
 
-	public Cropper(BitmapPixelGrabber bitmapPixelGrabber, Bitmap bitmap) {
+	public Cropper(BitmapPixelGrabber bitmapPixelGrabber) {
 		this.bitmapPixelGrabber = bitmapPixelGrabber;
-		this.bitmap = bitmap;
 	}
 
 	public Rect cropRegion(Point hitPoint, Bitmap bitmap) {
@@ -28,9 +26,9 @@ public class Cropper {
 		Rect bounds2 = searchArcsInQudrant(hitPoint, Quadrant.SECOND);
 		Rect bounds3 = searchArcsInQudrant(hitPoint, Quadrant.THIRD);
 		Rect bounds4 = searchArcsInQudrant(hitPoint, Quadrant.FOURTH);
-		Rect superlativeBounds = getSuperlativeBounds(bounds1, bounds2, bounds3, bounds4);
+		Rect superlativeBounds = BitmapSearcher.getSuperlativeBounds(bounds1, bounds2, bounds3, bounds4);
 
-		bitmapPixelGrabber.drawBox(superlativeBounds, Color.YELLOW, 100);
+		bitmapPixelGrabber.drawBox(superlativeBounds, Color.GRAY, 70);
 
 		return superlativeBounds;
 	}
@@ -40,22 +38,7 @@ public class Cropper {
 		Rect bounds2 = searchArc(hitPoint, (float) (Math.PI / 6f), (float) (Math.PI / 3f), quadrant);
 		Rect bounds3 = searchArc(hitPoint, (float) (Math.PI / 3f), (float) (Math.PI / 2f), quadrant);
 
-		return getSuperlativeBounds(bounds1, bounds2, bounds3);
-	}
-
-	private Rect getSuperlativeBounds(Rect... bounds) {
-		Rect superlativeBounds = bounds[0];
-		for (int i = 1; i < bounds.length; i++) {
-			if (bounds[i].left < superlativeBounds.left)
-				superlativeBounds.left = bounds[i].left;
-			if (bounds[i].top < superlativeBounds.top)
-				superlativeBounds.top = bounds[i].top;
-			if (bounds[i].right > superlativeBounds.right)
-				superlativeBounds.right = bounds[i].right;
-			if (bounds[i].bottom > superlativeBounds.bottom)
-				superlativeBounds.bottom = bounds[i].bottom;
-		}
-		return superlativeBounds;
+		return BitmapSearcher.getSuperlativeBounds(bounds1, bounds2, bounds3);
 	}
 
 	private Rect searchArc(Point hitPoint, float angleMin, float angleMax, Quadrant quadrant) {
