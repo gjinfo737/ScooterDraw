@@ -32,6 +32,7 @@ public class Draw extends Activity implements IFormMenuItemStateProvider, IBitma
 	private Button btnErase;
 	private Button btnHigh;
 	private Button btnSearch;
+	private Button btnCrop;
 	private boolean isSearching = false;
 
 	@Override
@@ -59,23 +60,35 @@ public class Draw extends Activity implements IFormMenuItemStateProvider, IBitma
 		btnErase = (Button) findViewById(id.button_erase);
 		btnHigh = (Button) findViewById(id.button_high);
 		btnSearch = (Button) findViewById(id.button_search);
+		btnCrop = (Button) findViewById(id.btncrop);
+		btnCrop.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startCropppping();
+			}
+
+		});
 		btnDraw.setOnClickListener(new OnClickListener() {
+			@Override
 			public void onClick(View v) {
 				startDrawing();
 			}
 		});
 		btnErase.setOnClickListener(new OnClickListener() {
+			@Override
 			public void onClick(View v) {
 				startErasing();
 			}
 		});
 		btnHigh.setOnClickListener(new OnClickListener() {
+			@Override
 			public void onClick(View v) {
 				startHighlighting();
 
 			}
 		});
 		btnSearch.setOnClickListener(new OnClickListener() {
+			@Override
 			public void onClick(View v) {
 				toggleSearch();
 			}
@@ -87,16 +100,27 @@ public class Draw extends Activity implements IFormMenuItemStateProvider, IBitma
 			}
 		});
 		((Button) findViewById(id.button_black)).setOnClickListener(new OnClickListener() {
+			@Override
 			public void onClick(View v) {
 				signatureView.setColor(0, 0, 0);
 			}
 		});
 		((Button) findViewById(id.button_red)).setOnClickListener(new OnClickListener() {
+			@Override
 			public void onClick(View v) {
 				signatureView.setColor(255, 0, 0);
 			}
 		});
 
+	}
+
+	private void startCropppping() {
+		if (!isSearching) {
+			isSearching = true;
+			signatureView.cropSearch(this);
+		} else {
+			signatureView.stopSearching();
+		}
 	}
 
 	private void toggleSearch() {

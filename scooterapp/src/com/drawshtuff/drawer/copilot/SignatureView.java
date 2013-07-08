@@ -21,7 +21,7 @@ import copilot.utils.views.bitmap.search.BitmapSearcher.IBitmapSearcherListener;
 
 public class SignatureView extends View {
 
-	private static final float SEARCH_DENSITY = .01f;
+	private static final float SEARCH_DENSITY = .02f;
 	private ArrayList<SerializablePath> m_paths;
 	private SerializablePath m_currentPath;
 	private Paint m_penPaint;
@@ -146,6 +146,18 @@ public class SignatureView extends View {
 
 	public void setColor(int r, int g, int b) {
 		m_penPaint.setARGB(m_penPaint.getAlpha(), r, g, b);
+	}
+
+	public void cropSearch(IBitmapSearcherListener bitmapSearcherListener) {
+		final SignatureView view = this;
+		final Handler handler = new Handler();
+		bitmapSearcher = new BitmapSearcher();
+		bitmapSearcher.cropSearchBitmap(bitmap, bitmapSearcherListener, SEARCH_DENSITY, handler, new Runnable() {
+			@Override
+			public void run() {
+				view.invalidate();
+			}
+		});
 	}
 
 	public void search(IBitmapSearcherListener bitmapSearcherListener) {

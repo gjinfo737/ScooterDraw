@@ -38,10 +38,15 @@ public class BitmapPixelGrabber {
 		}
 	}
 
-	public boolean drawColor(int x, int y, int color, float radius) {
+	public boolean testAndDrawColor(int x, int y, int color, float radius) {
 		if (isBlack(x, y)) {
 			return true;
 		}
+		drawColor(x, y, color, radius);
+		return false;
+	}
+
+	public void drawColor(int x, int y, int color, float radius) {
 		paint.setColor(color);
 		paint.setAlpha(ALPHA);
 		if (x >= bitmap.getWidth())
@@ -55,6 +60,5 @@ public class BitmapPixelGrabber {
 			y = 1;
 		//
 		canvas.drawCircle(x, y, radius, paint);
-		return false;
 	}
 }

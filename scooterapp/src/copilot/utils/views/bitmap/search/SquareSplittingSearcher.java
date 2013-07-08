@@ -34,7 +34,7 @@ public class SquareSplittingSearcher {
 				return;
 			}
 
-			boolean drawBlack = bitmapPixelGrabber.drawColor(centerX, centerY, Color.BLACK, 5);
+			boolean drawBlack = bitmapPixelGrabber.testAndDrawColor(centerX, centerY, Color.BLACK, 5);
 			handler.post(runnable);
 			try {
 				Thread.sleep(1000);

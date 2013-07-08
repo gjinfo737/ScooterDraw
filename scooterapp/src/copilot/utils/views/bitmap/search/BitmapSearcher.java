@@ -32,6 +32,18 @@ public class BitmapSearcher {
 		});
 	}
 
+	public void cropSearchBitmap(final Bitmap bitmap, final IBitmapSearcherListener bitmapSearcherListener, final float searchDensity, final Handler handler,
+			final Runnable runnable) {
+		this.handler = handler;
+		this.runnable = runnable;
+		if (searchDensity <= 0 || searchDensity >= 1)
+			throw new IllegalArgumentException("Search density must be >0 and <1.  Was: " + searchDensity);
+		//
+		this.bitmapSearcherListener = bitmapSearcherListener;
+		this.isSearching = true;
+		cropSearch(bitmap, bitmapSearcherListener, searchDensity);
+	}
+
 	public void searchBitmap(final Bitmap bitmap, final IBitmapSearcherListener bitmapSearcherListener, final float searchDensity, final Handler handler, final Runnable runnable) {
 		this.handler = handler;
 		this.runnable = runnable;
@@ -60,6 +72,39 @@ public class BitmapSearcher {
 		}
 	}
 
+	private void cropSearch(final Bitmap bitmap, final IBitmapSearcherListener bitmapSearcherListener, final float searchDensity) {
+		bitmapPixelGrabber = new BitmapPixelGrabber(bitmap);
+		final Cropper cropper = new Cropper(bitmapPixelGrabber, bitmap);
+		final int width = bitmap.getWidth();
+		final int height = bitmap.getHeight();
+		// //////////
+		count = 0;
+		total = 0;
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				total++;
+				Point hitPoint = searchDiags(searchDensity, width, height, new Point((int) (width / 2f), 0));
+				if (hitPoint != null) {
+					cropper.cropRegion(hitPoint, bitmap);
+					handler.post(runnable);
+					onComplete(true);
+				} else {
+					hitPoint = searchDiags(searchDensity, width, height, new Point(0, (int) (-height / 3f)));
+					if (hitPoint != null) {
+						cropper.cropRegion(hitPoint, bitmap);
+						handler.post(runnable);
+						onComplete(true);
+					} else {
+						onComplete(false);
+					}
+				}
+			}
+
+		}).start();
+
+	}
+
 	private void search(Bitmap bitmap, final IBitmapSearcherListener bitmapSearcherListener, final float searchDensity) {
 		bitmapPixelGrabber = new BitmapPixelGrabber(bitmap);
 		final int width = bitmap.getWidth();
@@ -68,9 +113,10 @@ public class BitmapSearcher {
 		count = 0;
 		total = 0;
 		new Thread(new Runnable() {
+			@Override
 			public void run() {
 				total++;
-				if (searchDiags(searchDensity, width, height, new Point((int) (width / 2f), 0))) {
+				if (searchDiags(searchDensity, width, height, new Point((int) (width / 2f), 0)) != null) {
 					onComplete(true);
 				} else {
 					onComplete(false);
@@ -78,9 +124,10 @@ public class BitmapSearcher {
 			}
 		}).start();
 		new Thread(new Runnable() {
+			@Override
 			public void run() {
 				total++;
-				if (searchDiags(searchDensity, width, height, new Point(0, (int) (-height / 3f)))) {
+				if (searchDiags(searchDensity, width, height, new Point(0, (int) (-height / 3f))) != null) {
 					onComplete(true);
 				} else {
 					onComplete(false);
@@ -90,42 +137,42 @@ public class BitmapSearcher {
 
 	}
 
-	private boolean searchDiags(float searchDensity, int width, int height, Point govenor) {
+	private Point searchDiags(float searchDensity, int width, int height, Point govenor) {
 		int numberofSteps = (int) (1 / searchDensity);
 		int offsetY = (int) (height * searchDensity / 2f);
 		for (int offsetStep = 0; offsetStep < numberofSteps; offsetStep++) {
 			int offsetX = offset(width, offsetStep, searchDensity);
 			for (int step = 0; step < numberofSteps; step++) {
 				if (!isSearching)
-					return false;
-				Point translation1 = getDiagTranslation(width, height, searchDensity, step, offsetX + govenor.x, govenor.y);
-				if (drawQuads(new Point[] { getQuadPoint(0, width, height, translation1), getQuadPoint(1, width, height, translation1),
-						getQuadPoint(2, width, height, translation1), getQuadPoint(3, width, height, translation1) }, COLOR_1, RADIUS)) {
-					return true;
+					return null;
+				Point translation = getDiagTranslation(width, height, searchDensity, step, offsetX + govenor.x, govenor.y);
+				Point[] quadPoints = new Point[] { getQuadPoint(0, width, height, translation), getQuadPoint(1, width, height, translation),
+						getQuadPoint(2, width, height, translation), getQuadPoint(3, width, height, translation) };
+				int indexOfHitPoint = drawQuads(quadPoints, COLOR_1, RADIUS);
+				if (indexOfHitPoint != -1) {
+					return quadPoints[indexOfHitPoint];
 				}
-				Point translation2 = getDiagTranslation(-width, height, searchDensity, step, offsetX + govenor.x, offsetY + govenor.y);
-				if (drawQuads(new Point[] { getQuadPoint(0, width, height, translation2), getQuadPoint(1, width, height, translation2),
-						getQuadPoint(2, width, height, translation2), getQuadPoint(3, width, height, translation2) }, COLOR_2, RADIUS)) {
-					return true;
+				//
+				translation = getDiagTranslation(-width, height, searchDensity, step, offsetX + govenor.x, offsetY + govenor.y);
+				quadPoints = new Point[] { getQuadPoint(0, width, height, translation), getQuadPoint(1, width, height, translation), getQuadPoint(2, width, height, translation),
+						getQuadPoint(3, width, height, translation) };
+				indexOfHitPoint = drawQuads(quadPoints, COLOR_2, RADIUS);
+				if (indexOfHitPoint != -1) {
+					return quadPoints[indexOfHitPoint];
 				}
 				// /////////////
 				handler.post(runnable);
 			}
 		}
-		return false;
+		return null;
 	}
 
-	private boolean drawQuads(Point[] quadPoints, int color, float radius) {
-		if (bitmapPixelGrabber.drawColor(quadPoints[0].x, quadPoints[0].y, color, radius))
-			return true;
-		if (bitmapPixelGrabber.drawColor(quadPoints[1].x, quadPoints[1].y, color, radius))
-			return true;
-		if (bitmapPixelGrabber.drawColor(quadPoints[2].x, quadPoints[2].y, color, radius))
-			return true;
-		if (bitmapPixelGrabber.drawColor(quadPoints[3].x, quadPoints[3].y, color, radius))
-			return true;
-
-		return false;
+	private int drawQuads(Point[] quadPoints, int color, float radius) {
+		for (int i = 0; i < quadPoints.length; i++) {
+			if (bitmapPixelGrabber.testAndDrawColor(quadPoints[i].x, quadPoints[i].y, color, radius))
+				return i;
+		}
+		return -1;
 	}
 
 	private int offset(int size, int offsetStep, float searchDensity) {
