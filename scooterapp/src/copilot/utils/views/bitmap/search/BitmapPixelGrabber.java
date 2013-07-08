@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 
 public class BitmapPixelGrabber {
 
@@ -61,5 +62,13 @@ public class BitmapPixelGrabber {
 			y = 1;
 		//
 		canvas.drawCircle(x, y, radius, paint);
+	}
+
+	public void drawBox(Rect superlativeBounds, int color, int alpha) {
+		Paint rectPaint = new Paint();
+		rectPaint.setColor(color);
+		rectPaint.setAlpha(alpha);
+
+		canvas.drawRect(superlativeBounds, rectPaint);
 	}
 }
