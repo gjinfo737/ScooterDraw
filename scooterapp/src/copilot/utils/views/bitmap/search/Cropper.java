@@ -8,7 +8,7 @@ import android.graphics.Rect;
 
 public class Cropper {
 
-	private static final int MAX_WHITE_COUNT = 12;
+	private static final int MAX_WHITE_COUNT = 6;
 	private static final float ANGLE_DENSITY = (float) (Math.PI / 100f);
 	private final BitmapPixelGrabber bitmapPixelGrabber;
 	private final Bitmap bitmap;
