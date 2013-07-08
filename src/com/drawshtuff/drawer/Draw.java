@@ -77,7 +77,7 @@ public class Draw extends Activity implements IFormMenuItemStateProvider, IBitma
 		});
 		btnSearch.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				startSearch();
+				toggleSearch();
 			}
 		});
 		((Button) findViewById(id.button_clean)).setOnClickListener(new OnClickListener() {
@@ -99,10 +99,12 @@ public class Draw extends Activity implements IFormMenuItemStateProvider, IBitma
 
 	}
 
-	private void startSearch() {
+	private void toggleSearch() {
 		if (!isSearching) {
 			isSearching = true;
 			signatureView.search(this);
+		} else {
+			signatureView.stopSearching();
 		}
 	}
 

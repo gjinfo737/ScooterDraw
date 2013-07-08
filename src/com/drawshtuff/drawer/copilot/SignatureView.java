@@ -21,6 +21,7 @@ import copilot.utils.views.bitmap.search.BitmapSearcher.IBitmapSearcherListener;
 
 public class SignatureView extends View {
 
+	private static final float SEARCH_DENSITY = .01f;
 	private ArrayList<SerializablePath> m_paths;
 	private SerializablePath m_currentPath;
 	private Paint m_penPaint;
@@ -92,6 +93,7 @@ public class SignatureView extends View {
 	PointF least = new PointF();
 	PointF greatest = new PointF();
 	private ColorBox colorBox;
+	private BitmapSearcher bitmapSearcher;
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
@@ -149,7 +151,8 @@ public class SignatureView extends View {
 	public void search(IBitmapSearcherListener bitmapSearcherListener) {
 		final SignatureView view = this;
 		final Handler handler = new Handler();
-		new BitmapSearcher().searchBitmap(bitmap, bitmapSearcherListener, .02f, handler, new Runnable() {
+		bitmapSearcher = new BitmapSearcher();
+		bitmapSearcher.searchBitmap(bitmap, bitmapSearcherListener, SEARCH_DENSITY, handler, new Runnable() {
 			@Override
 			public void run() {
 				view.invalidate();
@@ -161,5 +164,10 @@ public class SignatureView extends View {
 		Canvas canvas = new Canvas(bitmap);
 		canvas.drawColor(Color.WHITE);
 		invalidate();
+	}
+
+	public void stopSearching() {
+		if (bitmapSearcher != null)
+			bitmapSearcher.stopSearching();
 	}
 }

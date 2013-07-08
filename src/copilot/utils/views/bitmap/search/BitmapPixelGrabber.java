@@ -7,6 +7,7 @@ import android.graphics.Paint;
 
 public class BitmapPixelGrabber {
 
+	private static final int ALPHA = 90;
 	private final Bitmap bitmap;
 	private Canvas canvas;
 	private Paint paint;
@@ -42,7 +43,7 @@ public class BitmapPixelGrabber {
 			return true;
 		}
 		paint.setColor(color);
-		paint.setAlpha(100);
+		paint.setAlpha(ALPHA);
 		if (x >= bitmap.getWidth())
 			x = bitmap.getWidth() - 1;
 		if (y >= bitmap.getHeight())
@@ -56,5 +57,4 @@ public class BitmapPixelGrabber {
 		canvas.drawCircle(x, y, radius, paint);
 		return false;
 	}
-
 }
