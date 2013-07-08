@@ -1,8 +1,12 @@
 package copilot.utils.views.bitmap.search;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.os.Handler;
 
 public class BitmapSearcher {
@@ -18,6 +22,7 @@ public class BitmapSearcher {
 	private Runnable runnable;
 	private int count = 0;
 	private int total = 0;
+	private List<Rect> excludedRects = new ArrayList<Rect>();
 
 	public interface IBitmapSearcherListener {
 		public void onComplete(boolean found);
@@ -75,6 +80,8 @@ public class BitmapSearcher {
 	private void cropSearch(final Bitmap bitmap, final IBitmapSearcherListener bitmapSearcherListener, final float searchDensity) {
 		bitmapPixelGrabber = new BitmapPixelGrabber(bitmap);
 		final Cropper cropper = new Cropper(bitmapPixelGrabber, bitmap);
+		excludedRects = new ArrayList<Rect>();
+
 		final int width = bitmap.getWidth();
 		final int height = bitmap.getHeight();
 		// //////////
@@ -84,20 +91,22 @@ public class BitmapSearcher {
 			@Override
 			public void run() {
 				total++;
-				Point hitPoint = searchDiags(searchDensity, width, height, new Point((int) (width / 2f), 0));
-				if (hitPoint != null) {
-					cropper.cropRegion(hitPoint, bitmap);
-					handler.post(runnable);
-					onComplete(true);
-				} else {
-					hitPoint = searchDiags(searchDensity, width, height, new Point(0, (int) (-height / 3f)));
+				boolean stop = false;
+
+				while (!stop) {
+					Point hitPoint = searchDiags(searchDensity, width, height, new Point((int) (width / 2f), 0));
 					if (hitPoint != null) {
-						cropper.cropRegion(hitPoint, bitmap);
-						handler.post(runnable);
-						onComplete(true);
+						excludedRects.add(cropper.cropRegion(hitPoint, bitmap));
 					} else {
-						onComplete(false);
+						hitPoint = searchDiags(searchDensity, width, height, new Point(0, (int) (-height / 3f)));
+						if (hitPoint != null) {
+							excludedRects.add(cropper.cropRegion(hitPoint, bitmap));
+						} else {
+							onComplete(false);
+							stop = true;
+						}
 					}
+					handler.post(runnable);
 				}
 			}
 
@@ -148,7 +157,7 @@ public class BitmapSearcher {
 				Point translation = getDiagTranslation(width, height, searchDensity, step, offsetX + govenor.x, govenor.y);
 				Point[] quadPoints = new Point[] { getQuadPoint(0, width, height, translation), getQuadPoint(1, width, height, translation),
 						getQuadPoint(2, width, height, translation), getQuadPoint(3, width, height, translation) };
-				int indexOfHitPoint = drawQuads(quadPoints, COLOR_1, RADIUS);
+				int indexOfHitPoint = testAndDrawQuadPoints(quadPoints, COLOR_1, RADIUS);
 				if (indexOfHitPoint != -1) {
 					return quadPoints[indexOfHitPoint];
 				}
@@ -156,7 +165,7 @@ public class BitmapSearcher {
 				translation = getDiagTranslation(-width, height, searchDensity, step, offsetX + govenor.x, offsetY + govenor.y);
 				quadPoints = new Point[] { getQuadPoint(0, width, height, translation), getQuadPoint(1, width, height, translation), getQuadPoint(2, width, height, translation),
 						getQuadPoint(3, width, height, translation) };
-				indexOfHitPoint = drawQuads(quadPoints, COLOR_2, RADIUS);
+				indexOfHitPoint = testAndDrawQuadPoints(quadPoints, COLOR_2, RADIUS);
 				if (indexOfHitPoint != -1) {
 					return quadPoints[indexOfHitPoint];
 				}
@@ -167,12 +176,22 @@ public class BitmapSearcher {
 		return null;
 	}
 
-	private int drawQuads(Point[] quadPoints, int color, float radius) {
+	private int testAndDrawQuadPoints(Point[] quadPoints, int color, float radius) {
 		for (int i = 0; i < quadPoints.length; i++) {
-			if (bitmapPixelGrabber.testAndDrawColor(quadPoints[i].x, quadPoints[i].y, color, radius))
-				return i;
+			if (!intersectsExclusions(quadPoints[i])) {
+				if (bitmapPixelGrabber.testAndDrawColor(quadPoints[i].x, quadPoints[i].y, color, radius))
+					return i;
+			}
 		}
 		return -1;
+	}
+
+	private boolean intersectsExclusions(Point point) {
+		for (Rect excRect : excludedRects) {
+			if (excRect.contains(point.x, point.y))
+				return true;
+		}
+		return false;
 	}
 
 	private int offset(int size, int offsetStep, float searchDensity) {

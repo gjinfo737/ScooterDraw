@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
-import android.util.Log;
 
 public class Cropper {
 
@@ -23,7 +22,7 @@ public class Cropper {
 		this.bitmap = bitmap;
 	}
 
-	public void cropRegion(Point hitPoint, Bitmap bitmap) {
+	public Rect cropRegion(Point hitPoint, Bitmap bitmap) {
 		bitmapPixelGrabber.drawColor(hitPoint.x, hitPoint.y, Color.GREEN, 7);
 		Rect bounds1 = searchArcsInQudrant(hitPoint, Quadrant.FIRST);
 		Rect bounds2 = searchArcsInQudrant(hitPoint, Quadrant.SECOND);
@@ -32,6 +31,8 @@ public class Cropper {
 		Rect superlativeBounds = getSuperlativeBounds(bounds1, bounds2, bounds3, bounds4);
 
 		bitmapPixelGrabber.drawBox(superlativeBounds, Color.YELLOW, 100);
+
+		return superlativeBounds;
 	}
 
 	private Rect searchArcsInQudrant(Point hitPoint, Quadrant quadrant) {
@@ -91,7 +92,6 @@ public class Cropper {
 			if (allWhite) {
 				allWhiteCount++;
 				if (allWhiteCount >= MAX_WHITE_COUNT) {
-					Log.e("allWhite", "stopped arc!!");
 					break;
 				}
 			}
