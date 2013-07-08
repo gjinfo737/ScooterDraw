@@ -21,7 +21,7 @@ public class Cropper {
 	}
 
 	public Rect cropRegion(Point hitPoint, Bitmap bitmap) {
-		bitmapPixelGrabber.drawColor(hitPoint.x, hitPoint.y, Color.GREEN, 7);
+		bitmapPixelGrabber.testAndDrawColor(hitPoint.x, hitPoint.y, Color.GREEN, 7);
 		Rect bounds1 = searchArcsInQudrant(hitPoint, Quadrant.FIRST);
 		Rect bounds2 = searchArcsInQudrant(hitPoint, Quadrant.SECOND);
 		Rect bounds3 = searchArcsInQudrant(hitPoint, Quadrant.THIRD);
@@ -66,7 +66,7 @@ public class Cropper {
 				if (pointF.y < least.y)
 					least.y = (int) pointF.y;
 
-				if (bitmapPixelGrabber.testAndDrawColor((int) pointF.x, (int) pointF.y, color, 2)) {
+				if (bitmapPixelGrabber.isBlack((int) pointF.x, (int) pointF.y)) {
 					allWhiteCount = 0;
 					allWhite = false;
 					break;

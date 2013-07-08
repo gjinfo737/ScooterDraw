@@ -23,7 +23,7 @@ public class BitmapSearcher {
 	private Runnable runnable;
 	private int count = 0;
 	private int total = 0;
-	private List<Rect> excludedRects = new ArrayList<Rect>();
+	private List<Rect> drawingRects = new ArrayList<Rect>();
 
 	public interface IBitmapSearcherListener {
 		public void onComplete(boolean found);
@@ -78,32 +78,6 @@ public class BitmapSearcher {
 		}
 	}
 
-	// private void combineOverlappingRects(List<Rect> rects) {
-	// Rect rectUnderTest = null;
-	// List<List<Rect>> overlappers = new ArrayList<List<Rect>>();
-	// int overLapperIndex = 0;
-	// rectUnderTest = rects.get(0);
-	// overlappers.add(new ArrayList<Rect>());
-	// overlappers.get(overLapperIndex).add(rectUnderTest);
-	// for (int i = 0; i < rects.size(); i++) {
-	// blah(rects, rectUnderTest, overlappers, overLapperIndex, i);
-	// }
-	//
-	// }
-	//
-	// private void blah(List<Rect> rects, Rect rectUnderTest, List<List<Rect>>
-	// overlappers, int overLapperIndex, int i) {
-	// for (int j = 0; j < rects.size(); j++) {
-	// if (i != j) {
-	// if (rectUnderTest.intersect(rects.get(j))) {
-	// overlappers.get(overLapperIndex).add(rects.get(j));
-	// rects.remove(rects.get(j));
-	// blah(rects, rects.get(j), overlappers, overLapperIndex, i);
-	// }
-	// }
-	// }
-	// }
-
 	public static Rect getSuperlativeBounds(Rect... bounds) {
 		Rect superlativeBounds = bounds[0];
 		for (int i = 1; i < bounds.length; i++) {
@@ -122,7 +96,7 @@ public class BitmapSearcher {
 	private void cropSearch(final Bitmap bitmap, final IBitmapSearcherListener bitmapSearcherListener, final float searchDensity) {
 		bitmapPixelGrabber = new BitmapPixelGrabber(bitmap);
 		final Cropper cropper = new Cropper(bitmapPixelGrabber);
-		excludedRects = new ArrayList<Rect>();
+		drawingRects = new ArrayList<Rect>();
 
 		final int width = bitmap.getWidth();
 		final int height = bitmap.getHeight();
@@ -138,14 +112,16 @@ public class BitmapSearcher {
 				while (!stop) {
 					Point hitPoint = searchDiags(searchDensity, width, height, new Point((int) (width / 2f), 0));
 					if (hitPoint != null) {
-						excludedRects.add(cropper.cropRegion(hitPoint, bitmap));
+						drawingRects.add(cropper.cropRegion(hitPoint, bitmap));
 					} else {
 						hitPoint = searchDiags(searchDensity, width, height, new Point(0, (int) (-height / 3f)));
 						if (hitPoint != null) {
-							excludedRects.add(cropper.cropRegion(hitPoint, bitmap));
+							drawingRects.add(cropper.cropRegion(hitPoint, bitmap));
 						} else {
-							onCompleteCrop();
+							mergeOverlappingRects(drawingRects);
+							trim(drawingRects, 2);
 							stop = true;
+							onCompleteCrop();
 						}
 					}
 					handler.post(runnable);
@@ -156,12 +132,63 @@ public class BitmapSearcher {
 
 	}
 
-	private void onCompleteCrop() {
-		Log.e("", "!!!!!!!");
-		mergeOverlappingRects(excludedRects);
-		Log.e("excludedRects.size()", excludedRects.size() + "");
+	public enum Edge {
+		LEFT, TOP, RIGHT, BOTTOM
+	}
 
-		for (Rect r : excludedRects) {
+	private void trim(List<Rect> drawingRects, final int searchDensity) {
+		for (Rect rect : drawingRects) {
+			trimFromEdge(searchDensity, rect, Edge.LEFT);
+			trimFromEdge(searchDensity, rect, Edge.TOP);
+			trimFromEdge(searchDensity, rect, Edge.RIGHT);
+			trimFromEdge(searchDensity, rect, Edge.BOTTOM);
+		}
+	}
+
+	private void trimFromEdge(final int searchDensity, Rect rect, Edge edge) {
+		int direction = 1;
+		int startEdge = rect.left;
+		if (edge == Edge.TOP) {
+			startEdge = rect.top;
+		} else if (edge == Edge.RIGHT) {
+			startEdge = rect.right;
+			direction = -1;
+		} else if (edge == Edge.BOTTOM) {
+			startEdge = rect.bottom;
+			direction = -1;
+		}
+
+		int numberOfSteps = Math.abs((rect.bottom - rect.top) / searchDensity);
+		for (int i = 0; i < numberOfSteps; i++) {
+			int offset = (int) (i * searchDensity);
+			int edgeOffset = startEdge + (offset * direction);
+			Point startPoint;
+			Point endPoint;
+			if (edge == Edge.TOP || edge == Edge.BOTTOM) {
+				startPoint = new Point(rect.left, edgeOffset);
+				endPoint = new Point(rect.right, edgeOffset);
+			} else {
+				startPoint = new Point(edgeOffset, rect.top);
+				endPoint = new Point(edgeOffset, rect.bottom);
+			}
+			if (bitmapPixelGrabber.testLine(startPoint, endPoint, searchDensity, Color.BLUE)) {
+				if (edge == Edge.LEFT) {
+					rect.left = edgeOffset;
+				} else if (edge == Edge.TOP) {
+					rect.top = edgeOffset;
+				} else if (edge == Edge.RIGHT) {
+					rect.right = edgeOffset;
+				} else if (edge == Edge.BOTTOM) {
+					rect.bottom = edgeOffset;
+				}
+				break;
+			}
+		}
+	}
+
+	private void onCompleteCrop() {
+
+		for (Rect r : drawingRects) {
 			Log.e("excludedRects", r.toString());
 			bitmapPixelGrabber.drawBox(r, Color.rgb(224, 119, 27), 100);
 		}
@@ -287,7 +314,7 @@ public class BitmapSearcher {
 	}
 
 	private boolean intersectsExclusions(Point point) {
-		for (Rect excRect : excludedRects) {
+		for (Rect excRect : drawingRects) {
 			if (excRect.contains(point.x, point.y))
 				return true;
 		}
