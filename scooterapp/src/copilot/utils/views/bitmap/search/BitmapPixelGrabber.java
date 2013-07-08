@@ -7,7 +7,7 @@ import android.graphics.Paint;
 
 public class BitmapPixelGrabber {
 
-	private static final int ALPHA = 90;
+	private static final int ALPHA = 255;
 	private final Bitmap bitmap;
 	private Canvas canvas;
 	private Paint paint;
@@ -39,11 +39,12 @@ public class BitmapPixelGrabber {
 	}
 
 	public boolean testAndDrawColor(int x, int y, int color, float radius) {
+		boolean found = false;
 		if (isBlack(x, y)) {
-			return true;
+			found = true;
 		}
 		drawColor(x, y, color, radius);
-		return false;
+		return found;
 	}
 
 	public void drawColor(int x, int y, int color, float radius) {
