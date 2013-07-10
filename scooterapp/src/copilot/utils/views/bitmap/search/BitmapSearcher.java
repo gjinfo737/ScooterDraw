@@ -25,6 +25,10 @@ public class BitmapSearcher {
 	private int total = 0;
 	private List<Rect> drawingRects = new ArrayList<Rect>();
 
+	public enum Edge {
+		LEFT, TOP, RIGHT, BOTTOM
+	}
+
 	public interface IBitmapSearcherListener {
 		public void onComplete(boolean found);
 	}
@@ -36,46 +40,6 @@ public class BitmapSearcher {
 				e.printStackTrace();
 			}
 		});
-	}
-
-	public void cropSearchBitmap(final Bitmap bitmap, final IBitmapSearcherListener bitmapSearcherListener, final float searchDensity, final Handler handler,
-			final Runnable runnable) {
-		this.handler = handler;
-		this.runnable = runnable;
-		if (searchDensity <= 0 || searchDensity >= 1)
-			throw new IllegalArgumentException("Search density must be >0 and <1.  Was: " + searchDensity);
-		//
-		this.bitmapSearcherListener = bitmapSearcherListener;
-		this.isSearching = true;
-		cropSearch(bitmap, bitmapSearcherListener, searchDensity);
-	}
-
-	public void searchBitmap(final Bitmap bitmap, final IBitmapSearcherListener bitmapSearcherListener, final float searchDensity, final Handler handler, final Runnable runnable) {
-		this.handler = handler;
-		this.runnable = runnable;
-		if (searchDensity <= 0 || searchDensity >= 1)
-			throw new IllegalArgumentException("Search density must be >0 and <1.  Was: " + searchDensity);
-		//
-		this.bitmapSearcherListener = bitmapSearcherListener;
-		this.isSearching = true;
-		search(bitmap, bitmapSearcherListener, searchDensity);
-	}
-
-	public boolean isSearching() {
-		return isSearching;
-	}
-
-	public void onComplete(final boolean found) {
-		count++;
-		if (count >= total || found) {
-			handler.post(new Runnable() {
-				@Override
-				public void run() {
-					isSearching = false;
-					bitmapSearcherListener.onComplete(found);
-				}
-			});
-		}
 	}
 
 	public static Rect getSuperlativeBounds(Rect... bounds) {
@@ -91,6 +55,44 @@ public class BitmapSearcher {
 				superlativeBounds.bottom = bounds[i].bottom;
 		}
 		return superlativeBounds;
+	}
+
+	public void cropSearchBitmap(final Bitmap bitmap, final IBitmapSearcherListener bitmapSearcherListener, final float searchDensity, final Handler handler,
+			final Runnable runnable) {
+		this.handler = handler;
+		this.runnable = runnable;
+		if (searchDensity <= 0 || searchDensity >= 1)
+			throw new IllegalArgumentException("Search density must be >0 and <1.  Was: " + searchDensity);
+		this.bitmapSearcherListener = bitmapSearcherListener;
+		this.isSearching = true;
+		cropSearch(bitmap, bitmapSearcherListener, searchDensity);
+	}
+
+	public void searchBitmap(final Bitmap bitmap, final IBitmapSearcherListener bitmapSearcherListener, final float searchDensity, final Handler handler, final Runnable runnable) {
+		this.handler = handler;
+		this.runnable = runnable;
+		if (searchDensity <= 0 || searchDensity >= 1)
+			throw new IllegalArgumentException("Search density must be >0 and <1.  Was: " + searchDensity);
+		this.bitmapSearcherListener = bitmapSearcherListener;
+		this.isSearching = true;
+		search(bitmap, bitmapSearcherListener, searchDensity);
+	}
+
+	public void onComplete(final boolean found) {
+		count++;
+		if (count >= total || found) {
+			handler.post(new Runnable() {
+				@Override
+				public void run() {
+					isSearching = false;
+					bitmapSearcherListener.onComplete(found);
+				}
+			});
+		}
+	}
+
+	public boolean isSearching() {
+		return isSearching;
 	}
 
 	private void cropSearch(final Bitmap bitmap, final IBitmapSearcherListener bitmapSearcherListener, final float searchDensity) {
@@ -118,7 +120,7 @@ public class BitmapSearcher {
 						if (hitPoint != null) {
 							drawingRects.add(cropper.cropRegion(hitPoint, bitmap));
 						} else {
-							mergeOverlappingRects(drawingRects);
+							new RectMerge().mergeOverlappingRects(drawingRects);
 							trim(drawingRects, 2);
 							stop = true;
 							onCompleteCrop();
@@ -130,10 +132,6 @@ public class BitmapSearcher {
 
 		}).start();
 
-	}
-
-	public enum Edge {
-		LEFT, TOP, RIGHT, BOTTOM
 	}
 
 	private void trim(List<Rect> drawingRects, final int searchDensity) {
@@ -198,47 +196,6 @@ public class BitmapSearcher {
 				bitmapSearcherListener.onComplete(true);
 			}
 		});
-	}
-
-	private void mergeOverlappingRects(List<Rect> rects) {
-		Rect merged = null;
-		int removeIndex1 = -1;
-		int removeIndex2 = -1;
-		for (int i = 0; i < rects.size(); i++) {
-			for (int j = 0; j < rects.size(); j++) {
-				if (i != j) {
-					if (overLaps(rects.get(i), rects.get(j))) {
-						merged = getSuperlativeBounds(rects.get(i), rects.get(j));
-						removeIndex1 = i;
-						removeIndex2 = j;
-						break;
-					}
-				}
-			}
-			if (merged != null)
-				break;
-		}
-		if (merged != null) {
-			if (removeIndex1 < removeIndex2) {
-				rects.remove(removeIndex2);
-				rects.remove(removeIndex1);
-			} else {
-				rects.remove(removeIndex1);
-				rects.remove(removeIndex2);
-			}
-			rects.add(merged);
-			mergeOverlappingRects(rects);
-		}
-	}
-
-	private boolean overLaps(Rect rect, Rect otherRect) {
-		Rect r1 = cloneRect(rect);
-		Rect r2 = cloneRect(otherRect);
-		return r1.intersect(r2);
-	}
-
-	private Rect cloneRect(Rect rect) {
-		return new Rect(rect.left, rect.top, rect.right, rect.bottom);
 	}
 
 	private void search(Bitmap bitmap, final IBitmapSearcherListener bitmapSearcherListener, final float searchDensity) {

@@ -19,7 +19,7 @@ import com.xtremelabs.robolectric.shadows.ShadowInputMethodManager;
 public class CoPilotTestRunner extends RobolectricTestRunner {
 
 	public CoPilotTestRunner(Class<?> testClass) throws InitializationError {
-		super(testClass, new File("../app"));
+		super(testClass, new File("../scooterapp"));
 	}
 
 	@Override
