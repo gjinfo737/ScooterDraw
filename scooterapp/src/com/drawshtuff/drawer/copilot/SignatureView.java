@@ -21,7 +21,7 @@ import copilot.utils.views.bitmap.search.BitmapSearcher.IBitmapSearcherListener;
 
 public class SignatureView extends View {
 
-	private static final float SEARCH_DENSITY = .02f;
+	public static final float SEARCH_DENSITY = .02f;
 	private ArrayList<SerializablePath> m_paths;
 	private SerializablePath m_currentPath;
 	private Paint m_penPaint;

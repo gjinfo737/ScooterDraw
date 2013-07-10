@@ -2,7 +2,6 @@ package copilot.utils.views.bitmap.search;
 
 import java.util.List;
 
-import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.Rect;
 

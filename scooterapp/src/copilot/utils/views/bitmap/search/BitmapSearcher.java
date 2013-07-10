@@ -182,7 +182,7 @@ public class BitmapSearcher {
 		});
 	}
 
-	Point searchDiags(float searchDensity, int width, int height, Point govenor) {
+	public Point searchDiags(float searchDensity, int width, int height, Point govenor) {
 		int numberofSteps = (int) (1 / searchDensity);
 		int offsetY = (int) (height * searchDensity / 2f);
 		for (int offsetStep = 0; offsetStep < numberofSteps; offsetStep++) {
@@ -193,7 +193,7 @@ public class BitmapSearcher {
 				Point translation = getDiagTranslation(width, height, searchDensity, step, offsetX + govenor.x, govenor.y);
 				Point[] quadPoints = new Point[] { getQuadPoint(0, width, height, translation), getQuadPoint(1, width, height, translation),
 						getQuadPoint(2, width, height, translation), getQuadPoint(3, width, height, translation) };
-				int indexOfHitPoint = testAndDrawQuadPoints(quadPoints, COLOR_1, RADIUS);
+				int indexOfHitPoint = testQuadPoints(quadPoints, COLOR_1, RADIUS);
 				if (indexOfHitPoint != -1) {
 					return quadPoints[indexOfHitPoint];
 				}
@@ -201,7 +201,7 @@ public class BitmapSearcher {
 				translation = getDiagTranslation(-width, height, searchDensity, step, offsetX + govenor.x, offsetY + govenor.y);
 				quadPoints = new Point[] { getQuadPoint(0, width, height, translation), getQuadPoint(1, width, height, translation), getQuadPoint(2, width, height, translation),
 						getQuadPoint(3, width, height, translation) };
-				indexOfHitPoint = testAndDrawQuadPoints(quadPoints, COLOR_2, RADIUS);
+				indexOfHitPoint = testQuadPoints(quadPoints, COLOR_2, RADIUS);
 				if (indexOfHitPoint != -1) {
 					return quadPoints[indexOfHitPoint];
 				}
@@ -211,10 +211,10 @@ public class BitmapSearcher {
 		return null;
 	}
 
-	private int testAndDrawQuadPoints(Point[] quadPoints, int color, float radius) {
+	private int testQuadPoints(Point[] quadPoints, int color, float radius) {
 		for (int i = 0; i < quadPoints.length; i++) {
 			if (!intersectsExclusions(quadPoints[i])) {
-				if (bitmapPixelGrabber.testAndDrawColor(quadPoints[i].x, quadPoints[i].y, color, radius))
+				if (bitmapPixelGrabber.isBlack(quadPoints[i].x, quadPoints[i].y))
 					return i;
 			}
 		}
