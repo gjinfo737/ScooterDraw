@@ -149,15 +149,8 @@ public class SignatureView extends View {
 	}
 
 	public void cropSearch(IBitmapSearcherListener bitmapSearcherListener) {
-		final SignatureView view = this;
-		final Handler handler = new Handler();
-		bitmapSearcher = new BitmapSearcher();
-		bitmapSearcher.cropSearchBitmap(bitmap, bitmapSearcherListener, SEARCH_DENSITY, handler, new Runnable() {
-			@Override
-			public void run() {
-				view.invalidate();
-			}
-		});
+		bitmapSearcher = new BitmapSearcher(bitmapSearcherListener);
+		bitmapSearcher.cropSearchBitmap(bitmap, SEARCH_DENSITY);
 	}
 
 	public void clean() {

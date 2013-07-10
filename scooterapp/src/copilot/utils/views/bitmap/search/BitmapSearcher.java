@@ -7,8 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.os.Handler;
-import android.util.Log;
 
 public class BitmapSearcher {
 
@@ -18,8 +16,6 @@ public class BitmapSearcher {
 	private boolean isSearching;
 	private IBitmapSearcherListener bitmapSearcherListener;
 	private BitmapPixelGrabber bitmapPixelGrabber;
-	private Handler handler;
-	private Runnable runnable;
 	private int count = 0;
 	private int total = 0;
 	private List<Rect> drawingRects = new ArrayList<Rect>();
@@ -32,7 +28,8 @@ public class BitmapSearcher {
 		public void onComplete(boolean found);
 	}
 
-	public BitmapSearcher() {
+	public BitmapSearcher(IBitmapSearcherListener bitmapSearcherListener) {
+		this.bitmapSearcherListener = bitmapSearcherListener;
 	}
 
 	public static Rect getSuperlativeBounds(Rect... bounds) {
@@ -50,27 +47,19 @@ public class BitmapSearcher {
 		return superlativeBounds;
 	}
 
-	public void cropSearchBitmap(final Bitmap bitmap, final IBitmapSearcherListener bitmapSearcherListener, final float searchDensity, final Handler handler,
-			final Runnable runnable) {
-		this.handler = handler;
-		this.runnable = runnable;
+	public void cropSearchBitmap(final Bitmap bitmap, final float searchDensity) {
 		if (searchDensity <= 0 || searchDensity >= 1)
 			throw new IllegalArgumentException("Search density must be >0 and <1.  Was: " + searchDensity);
-		this.bitmapSearcherListener = bitmapSearcherListener;
+
 		this.isSearching = true;
-		cropSearch(bitmap, bitmapSearcherListener, searchDensity);
+		cropSearch(bitmap, searchDensity);
 	}
 
 	public void onComplete(final boolean found) {
 		count++;
 		if (count >= total || found) {
-			handler.post(new Runnable() {
-				@Override
-				public void run() {
-					isSearching = false;
-					bitmapSearcherListener.onComplete(found);
-				}
-			});
+			isSearching = false;
+			bitmapSearcherListener.onComplete(found);
 		}
 	}
 
@@ -83,14 +72,12 @@ public class BitmapSearcher {
 		onComplete(false);
 	}
 
-	private void cropSearch(final Bitmap bitmap, final IBitmapSearcherListener bitmapSearcherListener, final float searchDensity) {
+	private void cropSearch(final Bitmap bitmap, final float searchDensity) {
 		bitmapPixelGrabber = new BitmapPixelGrabber(bitmap);
-		final Cropper cropper = new Cropper(bitmapPixelGrabber);
 		drawingRects = new ArrayList<Rect>();
-
+		final Cropper cropper = new Cropper(bitmapPixelGrabber);
 		final int width = bitmap.getWidth();
 		final int height = bitmap.getHeight();
-		// //////////
 		count = 0;
 		total = 0;
 		new Thread(new Runnable() {
@@ -163,17 +150,8 @@ public class BitmapSearcher {
 	}
 
 	private void onCompleteCrop() {
-
-		for (Rect r : drawingRects) {
-			Log.e("excludedRects", r.toString());
-			bitmapPixelGrabber.drawBox(r, Color.rgb(224, 119, 27), 100);
-		}
-		handler.post(new Runnable() {
-			@Override
-			public void run() {
-				bitmapSearcherListener.onComplete(true);
-			}
-		});
+		isSearching = false;
+		bitmapSearcherListener.onComplete(true);
 	}
 
 	public Point searchDiags(float searchDensity, int width, int height, Point govenor) {
@@ -199,7 +177,6 @@ public class BitmapSearcher {
 				if (indexOfHitPoint != -1) {
 					return quadPoints[indexOfHitPoint];
 				}
-				handler.post(runnable);
 			}
 		}
 		return null;
