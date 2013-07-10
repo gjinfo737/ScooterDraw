@@ -11,6 +11,7 @@ import org.mockito.Mock;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Point;
 
 import com.drawshtuff.test.runner.CoPilotTestRunner;
 
@@ -38,8 +39,7 @@ public class BitmapPixelGrabberTest {
 
 	@Test
 	public void itDistinguishesAlpha() {
-		int color = Color.argb(100, 0, 0, 0);
-		when(bitmap.getPixel(10, 10)).thenReturn(color);
+
 		assertThat(bitmapPixelGrabber.isBlack(10, 10), is(false));
 	}
 
@@ -47,5 +47,24 @@ public class BitmapPixelGrabberTest {
 	public void itReturnsFalseIfTestingOutOfBounds() {
 		when(bitmap.getPixel(100, 10)).thenReturn(Color.BLACK);
 		assertThat(bitmapPixelGrabber.isBlack(100, 10), is(false));
+	}
+
+	@Test
+	public void itRecognizesBlackInALine() {
+		when(bitmap.getPixel(10, 10)).thenReturn(Color.BLACK);
+		assertThat(bitmapPixelGrabber.testLine(new Point(10, 5), new Point(10, 15), 1), is(true));
+	}
+
+	@Test
+	public void itRecognizesBlackIsNotInALine() {
+		when(bitmap.getPixel(10, 10)).thenReturn(Color.BLACK);
+		assertThat(bitmapPixelGrabber.testLine(new Point(11, 5), new Point(11, 15), 1), is(false));
+	}
+
+	@Test
+	public void itIgnoresTranslucentBlackInALine() {
+		int color = Color.argb(100, 0, 0, 0);
+		when(bitmap.getPixel(10, 10)).thenReturn(color);
+		assertThat(bitmapPixelGrabber.testLine(new Point(10, 5), new Point(10, 15), 1), is(false));
 	}
 }

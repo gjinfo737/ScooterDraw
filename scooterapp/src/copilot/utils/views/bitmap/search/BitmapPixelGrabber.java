@@ -16,7 +16,7 @@ public class BitmapPixelGrabber {
 		paint.setColor(Color.BLACK);
 	}
 
-	public boolean testLine(Point startPoint, Point endPoint, float searchDensity, int color) {
+	public boolean testLine(Point startPoint, Point endPoint, float searchDensity) {
 		int numberOfXSteps = (int) Math.abs((endPoint.x - startPoint.x) / searchDensity);
 		int numberOfYSteps = (int) Math.abs((endPoint.y - startPoint.y) / searchDensity);
 		for (int i = 0; i < numberOfXSteps; i++) {

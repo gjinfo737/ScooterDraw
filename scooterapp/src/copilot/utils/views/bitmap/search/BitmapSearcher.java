@@ -134,7 +134,7 @@ public class BitmapSearcher {
 				startPoint = new Point(edgeOffset, rect.top);
 				endPoint = new Point(edgeOffset, rect.bottom);
 			}
-			if (bitmapPixelGrabber.testLine(startPoint, endPoint, searchDensity, Color.BLUE)) {
+			if (bitmapPixelGrabber.testLine(startPoint, endPoint, searchDensity)) {
 				if (edge == Edge.LEFT) {
 					rect.left = edgeOffset;
 				} else if (edge == Edge.TOP) {
