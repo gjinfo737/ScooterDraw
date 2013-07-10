@@ -30,8 +30,8 @@ public class RectMergeTest {
 
 	@Test
 	public void itMergesTwoOverlappingRects() {
-		Rect merged = new Rect(0, 0, 10, 10);
-		withTwoOverlappingRects();
+		Rect merged = new Rect(100, 100, 110, 110);
+		setUpTheRects().withTwoOverlappingRects();
 		rectMerge.mergeOverlappingRects(rects);
 		assertThat(rects.size(), is(1));
 		assertThat(rects.get(0), is(merged));
@@ -39,18 +39,42 @@ public class RectMergeTest {
 
 	@Test
 	public void itMergesTwoIsolatedRects() {
-		withTwoIsolatedRects();
+		setUpTheRects().withTwoIsolatedRects();
 		rectMerge.mergeOverlappingRects(rects);
 		assertThat(rects.size(), is(2));
 	}
 
-	private void withTwoIsolatedRects() {
-		rects.add(new Rect(0, 0, 5, 5));
-		rects.add(new Rect(10, 10, 20, 20));
+	@Test
+	public void itMergesOnlyOverlappingRects() {
+		Rect merged = new Rect(100, 100, 110, 110);
+		setUpTheRects().withTwoIsolatedRects().and().withTwoOverlappingRects();
+		rectMerge.mergeOverlappingRects(rects);
+		assertThat(rects.size(), is(3));
+		assertThat(rects.get(2), is(merged));
 	}
 
-	private void withTwoOverlappingRects() {
-		rects.add(new Rect(0, 0, 5, 10));
-		rects.add(new Rect(4, 0, 10, 5));
+	private Builder setUpTheRects() {
+		return new Builder();
 	}
+
+	private class Builder {
+
+		public Builder and() {
+			return this;
+		}
+
+		public Builder withTwoIsolatedRects() {
+			rects.add(new Rect(0, 0, 5, 5));
+			rects.add(new Rect(10, 10, 20, 20));
+			return this;
+		}
+
+		public Builder withTwoOverlappingRects() {
+			rects.add(new Rect(100, 100, 105, 110));
+			rects.add(new Rect(104, 100, 110, 105));
+			return this;
+		}
+
+	}
+
 }
