@@ -103,29 +103,19 @@ public class BitmapSearcher {
 			@Override
 			public void run() {
 				total++;
-				boolean stop = false;
-
-				while (!stop) {
-					Point hitPoint = searchDiags(searchDensity, width, height, new Point((int) (width / 2f), 0));
-					if (hitPoint != null) {
-						drawingRects.add(cropper.cropRegion(hitPoint, bitmap));
-					} else {
-						hitPoint = searchDiags(searchDensity, width, height, new Point(0, (int) (-height / 3f)));
-						if (hitPoint != null) {
-							drawingRects.add(cropper.cropRegion(hitPoint, bitmap));
-						} else {
-							new RectMerge().mergeOverlappingRects(drawingRects);
-							trim(drawingRects, 2);
-							stop = true;
-							onCompleteCrop();
-						}
-					}
-					handler.post(runnable);
-				}
+				new DrawingFinder(drawingRects, BitmapSearcher.this).findDrawings(searchDensity, width, height, cropper, bitmap);
 			}
-
 		}).start();
+	}
 
+	public void onSearchComplete() {
+		mergeAndTrim();
+		onCompleteCrop();
+	}
+
+	private void mergeAndTrim() {
+		new RectMerge().mergeOverlappingRects(drawingRects);
+		trim(drawingRects, 2);
 	}
 
 	private void trim(List<Rect> drawingRects, final int searchDensity) {
@@ -192,39 +182,7 @@ public class BitmapSearcher {
 		});
 	}
 
-	private void search(Bitmap bitmap, final IBitmapSearcherListener bitmapSearcherListener, final float searchDensity) {
-		bitmapPixelGrabber = new BitmapPixelGrabber(bitmap);
-		final int width = bitmap.getWidth();
-		final int height = bitmap.getHeight();
-		// //////////
-		count = 0;
-		total = 0;
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				total++;
-				if (searchDiags(searchDensity, width, height, new Point((int) (width / 2f), 0)) != null) {
-					onComplete(true);
-				} else {
-					onComplete(false);
-				}
-			}
-		}).start();
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				total++;
-				if (searchDiags(searchDensity, width, height, new Point(0, (int) (-height / 3f))) != null) {
-					onComplete(true);
-				} else {
-					onComplete(false);
-				}
-			}
-		}).start();
-
-	}
-
-	private Point searchDiags(float searchDensity, int width, int height, Point govenor) {
+	Point searchDiags(float searchDensity, int width, int height, Point govenor) {
 		int numberofSteps = (int) (1 / searchDensity);
 		int offsetY = (int) (height * searchDensity / 2f);
 		for (int offsetStep = 0; offsetStep < numberofSteps; offsetStep++) {
@@ -247,7 +205,6 @@ public class BitmapSearcher {
 				if (indexOfHitPoint != -1) {
 					return quadPoints[indexOfHitPoint];
 				}
-				// /////////////
 				handler.post(runnable);
 			}
 		}
