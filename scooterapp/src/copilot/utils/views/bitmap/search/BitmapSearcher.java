@@ -33,12 +33,6 @@ public class BitmapSearcher {
 	}
 
 	public BitmapSearcher() {
-		Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
-			@Override
-			public void uncaughtException(Thread t, Throwable e) {
-				e.printStackTrace();
-			}
-		});
 	}
 
 	public static Rect getSuperlativeBounds(Rect... bounds) {

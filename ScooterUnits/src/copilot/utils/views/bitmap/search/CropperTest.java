@@ -13,12 +13,10 @@ import org.mockito.Mock;
 import android.graphics.Point;
 import android.graphics.Rect;
 
-import com.drawshtuff.drawer.copilot.SignatureView;
 import com.drawshtuff.test.runner.CoPilotTestRunner;
 
 @RunWith(CoPilotTestRunner.class)
 public class CropperTest {
-	private float searchDensity = SignatureView.SEARCH_DENSITY;
 	private int width = 20;
 	private int height = 20;
 	private Cropper cropper;
