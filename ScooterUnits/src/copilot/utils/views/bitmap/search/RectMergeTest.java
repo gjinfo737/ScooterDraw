@@ -29,7 +29,7 @@ public class RectMergeTest {
 	}
 
 	@Test
-	public void itDoesIt() {
+	public void itMergesTwoOverlappingRects() {
 		Rect merged = new Rect(0, 0, 10, 10);
 		withTwoOverlappingRects();
 		rectMerge.mergeOverlappingRects(rects);
@@ -37,8 +37,20 @@ public class RectMergeTest {
 		assertThat(rects.get(0), is(merged));
 	}
 
-	private void withTwoOverlappingRects() {
-		// TODO Auto-generated method stub
+	@Test
+	public void itMergesTwoIsolatedRects() {
+		withTwoIsolatedRects();
+		rectMerge.mergeOverlappingRects(rects);
+		assertThat(rects.size(), is(2));
+	}
 
+	private void withTwoIsolatedRects() {
+		rects.add(new Rect(0, 0, 5, 5));
+		rects.add(new Rect(10, 10, 20, 20));
+	}
+
+	private void withTwoOverlappingRects() {
+		rects.add(new Rect(0, 0, 5, 10));
+		rects.add(new Rect(4, 0, 10, 5));
 	}
 }
