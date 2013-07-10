@@ -2,22 +2,17 @@ package copilot.utils.views.bitmap.search;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Rect;
 
 import com.drawshtuff.test.runner.CoPilotTestRunner;
-
-import copilot.utils.views.bitmap.search.BitmapSearcher.IBitmapSearcherListener;
 
 @RunWith(CoPilotTestRunner.class)
 public class BitmapPixelGrabberTest {
