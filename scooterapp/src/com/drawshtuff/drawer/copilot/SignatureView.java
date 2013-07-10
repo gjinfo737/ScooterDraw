@@ -160,18 +160,6 @@ public class SignatureView extends View {
 		});
 	}
 
-	public void search(IBitmapSearcherListener bitmapSearcherListener) {
-		final SignatureView view = this;
-		final Handler handler = new Handler();
-		bitmapSearcher = new BitmapSearcher();
-		bitmapSearcher.searchBitmap(bitmap, bitmapSearcherListener, SEARCH_DENSITY, handler, new Runnable() {
-			@Override
-			public void run() {
-				view.invalidate();
-			}
-		});
-	}
-
 	public void clean() {
 		Canvas canvas = new Canvas(bitmap);
 		canvas.drawColor(Color.WHITE);

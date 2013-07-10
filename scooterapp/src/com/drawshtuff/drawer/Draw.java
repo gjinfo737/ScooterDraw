@@ -90,7 +90,6 @@ public class Draw extends Activity implements IFormMenuItemStateProvider, IBitma
 		btnSearch.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				toggleSearch();
 			}
 		});
 		((Button) findViewById(id.button_clean)).setOnClickListener(new OnClickListener() {
@@ -118,15 +117,6 @@ public class Draw extends Activity implements IFormMenuItemStateProvider, IBitma
 		if (!isSearching) {
 			isSearching = true;
 			signatureView.cropSearch(this);
-		} else {
-			signatureView.stopSearching();
-		}
-	}
-
-	private void toggleSearch() {
-		if (!isSearching) {
-			isSearching = true;
-			signatureView.search(this);
 		} else {
 			signatureView.stopSearching();
 		}

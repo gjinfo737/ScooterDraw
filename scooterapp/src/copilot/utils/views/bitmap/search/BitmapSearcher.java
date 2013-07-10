@@ -18,7 +18,6 @@ public class BitmapSearcher {
 	private boolean isSearching;
 	private IBitmapSearcherListener bitmapSearcherListener;
 	private BitmapPixelGrabber bitmapPixelGrabber;
-	private SquareSplittingSearcherSpawner spawner;
 	private Handler handler;
 	private Runnable runnable;
 	private int count = 0;
@@ -68,16 +67,6 @@ public class BitmapSearcher {
 		cropSearch(bitmap, bitmapSearcherListener, searchDensity);
 	}
 
-	public void searchBitmap(final Bitmap bitmap, final IBitmapSearcherListener bitmapSearcherListener, final float searchDensity, final Handler handler, final Runnable runnable) {
-		this.handler = handler;
-		this.runnable = runnable;
-		if (searchDensity <= 0 || searchDensity >= 1)
-			throw new IllegalArgumentException("Search density must be >0 and <1.  Was: " + searchDensity);
-		this.bitmapSearcherListener = bitmapSearcherListener;
-		this.isSearching = true;
-		search(bitmap, bitmapSearcherListener, searchDensity);
-	}
-
 	public void onComplete(final boolean found) {
 		count++;
 		if (count >= total || found) {
@@ -93,6 +82,11 @@ public class BitmapSearcher {
 
 	public boolean isSearching() {
 		return isSearching;
+	}
+
+	public void stopSearching() {
+		count = total;
+		onComplete(false);
 	}
 
 	private void cropSearch(final Bitmap bitmap, final IBitmapSearcherListener bitmapSearcherListener, final float searchDensity) {
@@ -334,8 +328,4 @@ public class BitmapSearcher {
 		return point;
 	}
 
-	public void stopSearching() {
-		count = total;
-		onComplete(false);
-	}
 }
