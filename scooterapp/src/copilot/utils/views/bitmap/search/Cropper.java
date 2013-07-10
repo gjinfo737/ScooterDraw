@@ -20,7 +20,7 @@ public class Cropper {
 		this.bitmapPixelGrabber = bitmapPixelGrabber;
 	}
 
-	public Rect cropRegion(Point hitPoint, Bitmap bitmap) {
+	public Rect cropRegion(Point hitPoint) {
 		bitmapPixelGrabber.testAndDrawColor(hitPoint.x, hitPoint.y, Color.GREEN, 7);
 		Rect bounds1 = searchArcsInQudrant(hitPoint, Quadrant.FIRST);
 		Rect bounds2 = searchArcsInQudrant(hitPoint, Quadrant.SECOND);

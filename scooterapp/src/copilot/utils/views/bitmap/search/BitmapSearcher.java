@@ -103,7 +103,7 @@ public class BitmapSearcher {
 			@Override
 			public void run() {
 				total++;
-				new DrawingFinder(drawingRects, BitmapSearcher.this).findDrawings(searchDensity, width, height, cropper, bitmap);
+				new DrawingFinder(drawingRects, BitmapSearcher.this).findDrawings(searchDensity, width, height, cropper);
 			}
 		}).start();
 	}

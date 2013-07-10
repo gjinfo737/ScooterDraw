@@ -16,17 +16,17 @@ public class DrawingFinder {
 		this.bitmapSearcher = bitmapSearcher;
 	}
 
-	public void findDrawings(float searchDensity, int width, int height, Cropper cropper, Bitmap bitmap) {
+	public void findDrawings(float searchDensity, int width, int height, Cropper cropper) {
 		if (findADrawingPoint(searchDensity, width, height)) {
-			cropRegionFromPoint(cropper, bitmap);
-			findDrawings(searchDensity, height, height, cropper, bitmap);
+			cropRegionFromPoint(cropper);
+			findDrawings(searchDensity, height, height, cropper);
 		} else {
 			bitmapSearcher.onSearchComplete();
 		}
 	}
 
-	private void cropRegionFromPoint(Cropper cropper, Bitmap bitmap) {
-		drawingRects.add(cropper.cropRegion(hitPoint, bitmap));
+	private void cropRegionFromPoint(Cropper cropper) {
+		drawingRects.add(cropper.cropRegion(hitPoint));
 	}
 
 	private boolean findADrawingPoint(float searchDensity, int width, int height) {

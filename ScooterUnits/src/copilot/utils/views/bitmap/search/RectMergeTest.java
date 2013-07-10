@@ -51,28 +51,8 @@ public class RectMergeTest {
 		assertThat(rects.get(2), is(merged));
 	}
 
-	private Builder setUpTheRects() {
-		return new Builder();
-	}
-
-	private class Builder {
-
-		public Builder and() {
-			return this;
-		}
-
-		public Builder withTwoIsolatedRects() {
-			rects.add(new Rect(0, 0, 5, 5));
-			rects.add(new Rect(10, 10, 20, 20));
-			return this;
-		}
-
-		public Builder withTwoOverlappingRects() {
-			rects.add(new Rect(100, 100, 105, 110));
-			rects.add(new Rect(104, 100, 110, 105));
-			return this;
-		}
-
+	private RectBuilder setUpTheRects() {
+		return new RectBuilder(rects);
 	}
 
 }
