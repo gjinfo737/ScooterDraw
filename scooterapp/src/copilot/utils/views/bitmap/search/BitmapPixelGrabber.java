@@ -77,4 +77,16 @@ public class BitmapPixelGrabber {
 	public void drawBox(Rect bounds, int color, int alpha) {
 
 	}
+
+	public int getMaxDimension() {
+		return bitmap.getWidth() > bitmap.getHeight() ? bitmap.getWidth() : bitmap.getHeight();
+	}
+
+	public int width() {
+		return bitmap.getWidth();
+	}
+
+	public int height() {
+		return bitmap.getHeight();
+	}
 }

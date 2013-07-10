@@ -1,7 +1,5 @@
 package copilot.utils.views.bitmap.search;
 
-import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
@@ -10,6 +8,7 @@ public class Cropper {
 
 	private static final int MAX_WHITE_COUNT = 6;
 	private static final float ANGLE_DENSITY = (float) (Math.PI / 100f);
+	private static final int ARC_RADIUS_DENSITY = 5;
 	private final BitmapPixelGrabber bitmapPixelGrabber;
 
 	public enum Quadrant {
@@ -21,15 +20,11 @@ public class Cropper {
 	}
 
 	public Rect cropRegion(Point hitPoint) {
-		bitmapPixelGrabber.testAndDrawColor(hitPoint.x, hitPoint.y, Color.GREEN, 7);
 		Rect bounds1 = searchArcsInQudrant(hitPoint, Quadrant.FIRST);
 		Rect bounds2 = searchArcsInQudrant(hitPoint, Quadrant.SECOND);
 		Rect bounds3 = searchArcsInQudrant(hitPoint, Quadrant.THIRD);
 		Rect bounds4 = searchArcsInQudrant(hitPoint, Quadrant.FOURTH);
 		Rect superlativeBounds = BitmapSearcher.getSuperlativeBounds(bounds1, bounds2, bounds3, bounds4);
-
-		bitmapPixelGrabber.drawBox(superlativeBounds, Color.GRAY, 70);
-
 		return superlativeBounds;
 	}
 
@@ -47,14 +42,14 @@ public class Cropper {
 		int allWhiteCount = 0;
 
 		int minRadius = 1;
-		int maxRadius = 1500;
-		int radiusDensity = 5;
+		int width = bitmapPixelGrabber.width();
+		int height = bitmapPixelGrabber.height();
+		int maxRadius = bitmapPixelGrabber.getMaxDimension();
 		int radius = minRadius;
-		int numberOfSteps = (maxRadius - minRadius) / radiusDensity;
+		int numberOfSteps = (maxRadius - minRadius) / ARC_RADIUS_DENSITY;
 		boolean allWhite = false;
-		for (int i = 0; i < numberOfSteps; i++) {
+		for (int i = 0; i < numberOfSteps + 100; i++) {
 			PointF[] sectPoints = getArcPoints(hitPoint, radius, ANGLE_DENSITY, angleMin, angleMax, quadrant);
-			int color = allWhite ? Color.MAGENTA : Color.RED;
 			allWhite = true;
 			for (PointF pointF : sectPoints) {
 				if (pointF.x > greatest.x)
@@ -65,6 +60,9 @@ public class Cropper {
 					least.x = (int) pointF.x;
 				if (pointF.y < least.y)
 					least.y = (int) pointF.y;
+
+				greatest = bound(greatest, new Point(0, 0), new Point(width, height));
+				least = bound(least, new Point(0, 0), new Point(width, height));
 
 				if (bitmapPixelGrabber.isBlack((int) pointF.x, (int) pointF.y)) {
 					allWhiteCount = 0;
@@ -78,10 +76,23 @@ public class Cropper {
 					break;
 				}
 			}
-			radius += radiusDensity;
+			radius += ARC_RADIUS_DENSITY;
 		}
 
 		return new Rect(least.x, least.y, greatest.x, greatest.y);
+	}
+
+	public Point bound(Point original, Point min, Point max) {
+		Point boundedPoint = new Point(original.x, original.y);
+		if (boundedPoint.x < min.x)
+			boundedPoint.x = min.x;
+		if (boundedPoint.x > max.x)
+			boundedPoint.x = max.x;
+		if (boundedPoint.y < min.y)
+			boundedPoint.y = min.y;
+		if (boundedPoint.y > max.y)
+			boundedPoint.y = max.y;
+		return boundedPoint;
 	}
 
 	private PointF[] getArcPoints(Point hitPoint, int radius, float angleDensity, float angleMin, float angleMax, Quadrant quadrant) {
