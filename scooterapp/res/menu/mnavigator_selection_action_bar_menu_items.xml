@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:visible="true" android:enabled="true"
-		android:showAsAction="always|withText" android:id="@+id/mNavigatorDoneSelectionMenuItem"
-		android:title="Done"></item>
-</menu>

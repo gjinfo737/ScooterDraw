@@ -13,7 +13,7 @@
         android:icon="@drawable/scooter"
         android:label="@string/app_name" >
         <activity
-            android:name="com.drawshtuff.drawer.Draw"
+            android:name="com.drawstuff.drawer.Scooter"
             android:label="@string/app_name" android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
