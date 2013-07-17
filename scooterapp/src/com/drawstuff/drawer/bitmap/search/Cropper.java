@@ -1,4 +1,4 @@
-package copilot.utils.views.bitmap.search;
+package com.drawstuff.drawer.bitmap.search;
 
 import android.graphics.Point;
 import android.graphics.PointF;

@@ -28,6 +28,8 @@ public class DrawView extends View {
 
 	private boolean isPenning;
 
+	private boolean isErasing;
+
 	public DrawView(Context c, int scaledWidth, int scaledheight) {
 		super(c);
 		this.pather = new Pather();
@@ -54,7 +56,7 @@ public class DrawView extends View {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		if (!isPenning)
+		if (!isPenning && !isErasing)
 			return false;
 		float x = event.getX() + drawingOffsetX;
 		float y = event.getY() + drawingOffsetY;
@@ -146,11 +148,23 @@ public class DrawView extends View {
 	}
 
 	public void onPenStart() {
+		onEraseEnd();
 		this.isPenning = true;
+		paintPalette.setToDrawing();
 	}
 
 	public void onPenEnd() {
 		this.isPenning = false;
+	}
+
+	public void onEraseStart() {
+		onPenEnd();
+		this.isErasing = true;
+		paintPalette.setToErasing();
+	}
+
+	public void onEraseEnd() {
+		this.isErasing = false;
 	}
 
 }

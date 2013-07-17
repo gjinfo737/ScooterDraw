@@ -57,6 +57,7 @@ public class DrawableMenuItem implements OnMenuItemClickListener {
 
 	public void setItemState(MenuItemState itemState) {
 		this.itemState = itemState;
+		isSelected = itemState == MenuItemState.SELECTED;
 		refreshIcon();
 	}
 

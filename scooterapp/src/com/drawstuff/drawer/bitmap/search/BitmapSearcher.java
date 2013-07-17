@@ -1,35 +1,39 @@
-package copilot.utils.views.bitmap.search;
+package com.drawstuff.drawer.bitmap.search;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
 
 public class BitmapSearcher {
 
+	public static final int TRIM_DENSITY = 2;
 	private static final int COLOR_1 = Color.BLUE;
 	private static final int COLOR_2 = Color.CYAN;
 	private static final float RADIUS = 1;
-	private boolean isSearching;
-	private IBitmapSearcherListener bitmapSearcherListener;
 	private BitmapPixelGrabber bitmapPixelGrabber;
-	private int count = 0;
-	private int total = 0;
-	private List<Rect> drawingRects = new ArrayList<Rect>();
+	private DrawingFinder drawingFinder;
+	private RectMerge rectMerge;
+	private Trimmer trimmer;
 
 	public enum Edge {
 		LEFT, TOP, RIGHT, BOTTOM
 	}
 
-	public interface IBitmapSearcherListener {
-		public void onComplete(boolean found);
+	public BitmapSearcher() {
+		this.rectMerge = new RectMerge();
+		this.drawingFinder = new DrawingFinder(this);
+		this.trimmer = new Trimmer();
 	}
 
-	public BitmapSearcher(IBitmapSearcherListener bitmapSearcherListener) {
-		this.bitmapSearcherListener = bitmapSearcherListener;
+	public BitmapSearcher(RectMerge rectMerge, DrawingFinder drawingFinder, Trimmer trimmer) {
+		this.rectMerge = rectMerge;
+		this.drawingFinder = drawingFinder;
+		this.trimmer = trimmer;
 	}
 
 	public static Rect getSuperlativeBounds(Rect... bounds) {
@@ -47,111 +51,54 @@ public class BitmapSearcher {
 		return superlativeBounds;
 	}
 
-	public void cropSearchBitmap(final Bitmap bitmap, final float searchDensity) {
+	public List<PositionalBitmap> cropSearchBitmap(final byte[] drawingBmp, final float searchDensity) {
 		if (searchDensity <= 0 || searchDensity >= 1)
 			throw new IllegalArgumentException("Search density must be >0 and <1.  Was: " + searchDensity);
 
-		this.isSearching = true;
-		cropSearch(bitmap, searchDensity);
+		Bitmap bitmap = BitmapFactory.decodeByteArray(drawingBmp, 0, drawingBmp.length);
+
+		return cropSearchBitmap(bitmap, searchDensity);
 	}
 
-	public void onComplete(final boolean found) {
-		count++;
-		if (count >= total || found) {
-			isSearching = false;
-			bitmapSearcherListener.onComplete(found);
-		}
-	}
+	public List<PositionalBitmap> cropSearchBitmap(final Bitmap bitmap, final float searchDensity) {
+		if (searchDensity <= 0 || searchDensity >= 1)
+			throw new IllegalArgumentException("Search density must be >0 and <1.  Was: " + searchDensity);
 
-	public boolean isSearching() {
-		return isSearching;
-	}
-
-	public void stopSearching() {
-		count = total;
-		onComplete(false);
-	}
-
-	private void cropSearch(final Bitmap bitmap, final float searchDensity) {
 		bitmapPixelGrabber = new BitmapPixelGrabber(bitmap);
-		drawingRects = new ArrayList<Rect>();
 		final Cropper cropper = new Cropper(bitmapPixelGrabber);
-		final int width = bitmap.getWidth();
-		final int height = bitmap.getHeight();
-		count = 0;
-		total = 0;
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				total++;
-				new DrawingFinder(drawingRects, BitmapSearcher.this).findDrawings(searchDensity, width, height, cropper);
-			}
-		}).start();
+		List<Rect> subRects = drawingFinder.startFindDrawings(searchDensity, bitmap.getWidth(), bitmap.getHeight(), cropper);
+		mergeAndTrim(subRects);
+		return getPositionalBitmaps(subRects);
 	}
 
-	public void onSearchComplete() {
-		mergeAndTrim();
-		onCompleteCrop();
+	public List<PositionalBitmap> getPositionalBitmaps(List<Rect> drawingRects) {
+		return getSubsetBitmaps(drawingRects);
 	}
 
-	private void mergeAndTrim() {
-		new RectMerge().mergeOverlappingRects(drawingRects);
-		trim(drawingRects, 2);
+	private List<PositionalBitmap> getSubsetBitmaps(List<Rect> drawingRects) {
+		List<PositionalBitmap> bitmaps = new ArrayList<PositionalBitmap>();
+		for (Rect rect : drawingRects) {
+			Bitmap subSet = bitmapPixelGrabber.subSet(rect);
+
+			bitmaps.add(new PositionalBitmap(subSet, rect));
+		}
+
+		return bitmaps;
+	}
+
+	private void mergeAndTrim(List<Rect> drawingRects) {
+		rectMerge.mergeOverlappingRects(drawingRects);
+		trim(drawingRects, TRIM_DENSITY);
 	}
 
 	private void trim(List<Rect> drawingRects, final int searchDensity) {
+		trimmer.setBitmapPixelGrabber(bitmapPixelGrabber);
 		for (Rect rect : drawingRects) {
-			trimFromEdge(searchDensity, rect, Edge.LEFT);
-			trimFromEdge(searchDensity, rect, Edge.TOP);
-			trimFromEdge(searchDensity, rect, Edge.RIGHT);
-			trimFromEdge(searchDensity, rect, Edge.BOTTOM);
+			trimmer.trimFromEdge(searchDensity, rect, Edge.LEFT);
+			trimmer.trimFromEdge(searchDensity, rect, Edge.TOP);
+			trimmer.trimFromEdge(searchDensity, rect, Edge.RIGHT);
+			trimmer.trimFromEdge(searchDensity, rect, Edge.BOTTOM);
 		}
-	}
-
-	private void trimFromEdge(final int searchDensity, Rect rect, Edge edge) {
-		int direction = 1;
-		int startEdge = rect.left;
-		if (edge == Edge.TOP) {
-			startEdge = rect.top;
-		} else if (edge == Edge.RIGHT) {
-			startEdge = rect.right;
-			direction = -1;
-		} else if (edge == Edge.BOTTOM) {
-			startEdge = rect.bottom;
-			direction = -1;
-		}
-
-		int numberOfSteps = Math.abs((rect.bottom - rect.top) / searchDensity);
-		for (int i = 0; i < numberOfSteps; i++) {
-			int offset = (int) (i * searchDensity);
-			int edgeOffset = startEdge + (offset * direction);
-			Point startPoint;
-			Point endPoint;
-			if (edge == Edge.TOP || edge == Edge.BOTTOM) {
-				startPoint = new Point(rect.left, edgeOffset);
-				endPoint = new Point(rect.right, edgeOffset);
-			} else {
-				startPoint = new Point(edgeOffset, rect.top);
-				endPoint = new Point(edgeOffset, rect.bottom);
-			}
-			if (bitmapPixelGrabber.testLine(startPoint, endPoint, searchDensity)) {
-				if (edge == Edge.LEFT) {
-					rect.left = edgeOffset;
-				} else if (edge == Edge.TOP) {
-					rect.top = edgeOffset;
-				} else if (edge == Edge.RIGHT) {
-					rect.right = edgeOffset;
-				} else if (edge == Edge.BOTTOM) {
-					rect.bottom = edgeOffset;
-				}
-				break;
-			}
-		}
-	}
-
-	private void onCompleteCrop() {
-		isSearching = false;
-		bitmapSearcherListener.onComplete(true);
 	}
 
 	public Point searchDiags(float searchDensity, int width, int height, Point govenor) {
@@ -160,8 +107,6 @@ public class BitmapSearcher {
 		for (int offsetStep = 0; offsetStep < numberofSteps; offsetStep++) {
 			int offsetX = offset(width, offsetStep, searchDensity);
 			for (int step = 0; step < numberofSteps; step++) {
-				if (!isSearching)
-					return null;
 				Point translation = getDiagTranslation(width, height, searchDensity, step, offsetX + govenor.x, govenor.y);
 				Point[] quadPoints = new Point[] { getQuadPoint(0, width, height, translation), getQuadPoint(1, width, height, translation),
 						getQuadPoint(2, width, height, translation), getQuadPoint(3, width, height, translation) };
@@ -184,20 +129,12 @@ public class BitmapSearcher {
 
 	private int testQuadPoints(Point[] quadPoints, int color, float radius) {
 		for (int i = 0; i < quadPoints.length; i++) {
-			if (!intersectsExclusions(quadPoints[i])) {
+			if (!drawingFinder.intersectsExclusions(quadPoints[i])) {
 				if (bitmapPixelGrabber.isBlack(quadPoints[i].x, quadPoints[i].y))
 					return i;
 			}
 		}
 		return -1;
-	}
-
-	private boolean intersectsExclusions(Point point) {
-		for (Rect excRect : drawingRects) {
-			if (excRect.contains(point.x, point.y))
-				return true;
-		}
-		return false;
 	}
 
 	private int offset(int size, int offsetStep, float searchDensity) {
@@ -217,8 +154,7 @@ public class BitmapSearcher {
 	}
 
 	private int random(int size, float searchDensity) {
-		double random = Math.random();
-		double d = random * size * searchDensity;
+		double d = Math.random() * size * searchDensity;
 		if (Math.random() < .5) {
 			d = -d;
 		}

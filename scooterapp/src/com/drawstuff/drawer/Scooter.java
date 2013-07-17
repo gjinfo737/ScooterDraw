@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.widget.RelativeLayout;
 
-import com.drawshtuff.drawer.R.id;
-import com.drawshtuff.drawer.R.layout;
 import com.drawshtuff.drawer.view.DrawView;
+import com.drawstuff.drawer.R.id;
+import com.drawstuff.drawer.R.layout;
 
 public class Scooter extends Activity {
 

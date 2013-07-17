@@ -1,5 +1,6 @@
-package copilot.utils.views.bitmap.search;
+package com.drawstuff.drawer.bitmap.search;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Point;
@@ -10,18 +11,30 @@ public class DrawingFinder {
 	private BitmapSearcher bitmapSearcher;
 	private Point hitPoint;
 
-	public DrawingFinder(List<Rect> drawingRects, BitmapSearcher bitmapSearcher) {
-		this.drawingRects = drawingRects;
+	public DrawingFinder(BitmapSearcher bitmapSearcher) {
+		this.drawingRects = new ArrayList<Rect>();
 		this.bitmapSearcher = bitmapSearcher;
 	}
 
-	public void findDrawings(float searchDensity, int width, int height, Cropper cropper) {
+	public List<Rect> startFindDrawings(float searchDensity, int width, int height, Cropper cropper) {
+		drawingRects = new ArrayList<Rect>();
+		return findDrawings(searchDensity, width, height, cropper);
+	}
+
+	private List<Rect> findDrawings(float searchDensity, int width, int height, Cropper cropper) {
 		if (findADrawingPoint(searchDensity, width, height)) {
 			cropRegionFromPoint(cropper);
 			findDrawings(searchDensity, height, height, cropper);
-		} else {
-			bitmapSearcher.onSearchComplete();
 		}
+		return drawingRects;
+	}
+
+	public boolean intersectsExclusions(Point point) {
+		for (Rect excRect : drawingRects) {
+			if (excRect.contains(point.x, point.y))
+				return true;
+		}
+		return false;
 	}
 
 	private void cropRegionFromPoint(Cropper cropper) {

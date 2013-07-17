@@ -1,9 +1,9 @@
-package copilot.utils.views.bitmap.search;
+package com.drawstuff.drawer.bitmap.search;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
+import android.graphics.Rect;
 
 public class BitmapPixelGrabber {
 
@@ -14,20 +14,6 @@ public class BitmapPixelGrabber {
 		this.bitmap = bitmap;
 		this.paint = new Paint();
 		paint.setColor(Color.BLACK);
-	}
-
-	public boolean testLine(Point startPoint, Point endPoint, float searchDensity) {
-		int numberOfXSteps = (int) Math.abs((endPoint.x - startPoint.x) / searchDensity);
-		int numberOfYSteps = (int) Math.abs((endPoint.y - startPoint.y) / searchDensity);
-		for (int i = 0; i < numberOfXSteps; i++) {
-			if (isBlack((int) (startPoint.x + (i * searchDensity)), startPoint.y))
-				return true;
-		}
-		for (int i = 0; i < numberOfYSteps; i++) {
-			if (isBlack(startPoint.x, (int) (startPoint.y + (i * searchDensity))))
-				return true;
-		}
-		return false;
 	}
 
 	public boolean isBlack(int x, int y) {
@@ -60,4 +46,25 @@ public class BitmapPixelGrabber {
 	public int height() {
 		return bitmap.getHeight();
 	}
+
+	public Bitmap subSet(Rect rect) {
+		return Bitmap.createBitmap(bitmap, rect.left, rect.top, rect.width(), rect.height());
+	}
+
+	public int left() {
+		return 0;
+	}
+
+	public int top() {
+		return 0;
+	}
+
+	public int right() {
+		return width();
+	}
+
+	public int bottom() {
+		return height();
+	}
+
 }

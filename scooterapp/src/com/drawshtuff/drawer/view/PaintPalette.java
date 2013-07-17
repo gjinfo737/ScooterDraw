@@ -7,11 +7,12 @@ import android.graphics.PorterDuffXfermode;
 
 public class PaintPalette {
 
-	public static final float ERASER_GIRTH = 75f;
+	public static final float ERASER_GIRTH = 15f;
 	public static final PorterDuffXfermode CLEAR_XFER_MODE = new PorterDuffXfermode(PorterDuff.Mode.CLEAR);
 	public static final int DEFAULT_PEN_COLOR = Color.BLACK;
 	public static final int DEFAULT_PEN_GIRTH = 15;
 	private Paint paint;
+	private int lastColor;
 
 	public PaintPalette() {
 		initializePaint(DEFAULT_PEN_COLOR, DEFAULT_PEN_GIRTH);
@@ -23,6 +24,7 @@ public class PaintPalette {
 
 	public void setToDrawing() {
 		paint.setXfermode(null);
+		setColor(lastColor);
 	}
 
 	public void setToErasing() {
@@ -46,6 +48,7 @@ public class PaintPalette {
 
 	private void initializePaint(int penColor, int strokeWidth) {
 		paint = new Paint();
+		this.lastColor = penColor;
 		paint.setColor(penColor);
 		paint.setStyle(Paint.Style.STROKE);
 		paint.setStrokeJoin(Paint.Join.ROUND);
