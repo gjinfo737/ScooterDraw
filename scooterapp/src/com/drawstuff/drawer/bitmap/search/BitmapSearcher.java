@@ -130,7 +130,7 @@ public class BitmapSearcher {
 	private int testQuadPoints(Point[] quadPoints, int color, float radius) {
 		for (int i = 0; i < quadPoints.length; i++) {
 			if (!drawingFinder.intersectsExclusions(quadPoints[i])) {
-				if (bitmapPixelGrabber.isBlack(quadPoints[i].x, quadPoints[i].y))
+				if (bitmapPixelGrabber.test(quadPoints[i].x, quadPoints[i].y))
 					return i;
 			}
 		}

@@ -64,7 +64,7 @@ public class Cropper {
 				greatest = bound(greatest, new Point(0, 0), new Point(width, height));
 				least = bound(least, new Point(0, 0), new Point(width, height));
 
-				if (bitmapPixelGrabber.isBlack((int) pointF.x, (int) pointF.y)) {
+				if (bitmapPixelGrabber.testAndDraw((int) pointF.x, (int) pointF.y)) {
 					allWhiteCount = 0;
 					allWhite = false;
 					break;

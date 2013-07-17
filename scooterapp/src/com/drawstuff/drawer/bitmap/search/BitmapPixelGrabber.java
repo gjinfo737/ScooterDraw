@@ -1,6 +1,7 @@
 package com.drawstuff.drawer.bitmap.search;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -9,14 +10,26 @@ public class BitmapPixelGrabber {
 
 	private final Bitmap bitmap;
 	private Paint paint;
+	private Canvas canvas;
 
 	public BitmapPixelGrabber(Bitmap bitmap) {
 		this.bitmap = bitmap;
+		this.canvas = new Canvas(this.bitmap);
 		this.paint = new Paint();
-		paint.setColor(Color.BLACK);
+		paint.setColor(Color.MAGENTA);
 	}
 
-	public boolean isBlack(int x, int y) {
+	public boolean testAndDraw(int x, int y) {
+		boolean isBlack = test(x, y);
+		if (isBlack)
+			return isBlack;
+
+		canvas.drawCircle(x, y, 1, paint);
+		return isBlack;
+	}
+
+	public boolean test(int x, int y) {
+
 		if (x >= bitmap.getWidth())
 			x = bitmap.getWidth() - 1;
 		if (y >= bitmap.getHeight())

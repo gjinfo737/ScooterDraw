@@ -1,9 +1,9 @@
 package com.drawstuff.drawer.bitmap.search;
 
-import com.drawstuff.drawer.bitmap.search.BitmapSearcher.Edge;
-
 import android.graphics.Point;
 import android.graphics.Rect;
+
+import com.drawstuff.drawer.bitmap.search.BitmapSearcher.Edge;
 
 public class Trimmer {
 
@@ -54,11 +54,11 @@ public class Trimmer {
 		int numberOfXSteps = rectangleVector.determineNumberOfSteps(startPoint.x, endPoint.x);
 		int numberOfYSteps = rectangleVector.determineNumberOfSteps(startPoint.y, endPoint.y);
 		for (int i = 0; i < numberOfXSteps; i++) {
-			if (bitmapPixelGrabber.isBlack((int) (startPoint.x + (i * rectangleVector.getSearchDensity())), startPoint.y))
+			if (bitmapPixelGrabber.test((int) (startPoint.x + (i * rectangleVector.getSearchDensity())), startPoint.y))
 				return true;
 		}
 		for (int i = 0; i < numberOfYSteps; i++) {
-			if (bitmapPixelGrabber.isBlack(startPoint.x, (int) (startPoint.y + (i * rectangleVector.getSearchDensity()))))
+			if (bitmapPixelGrabber.test(startPoint.x, (int) (startPoint.y + (i * rectangleVector.getSearchDensity()))))
 				return true;
 		}
 		return false;

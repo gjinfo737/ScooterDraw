@@ -9,6 +9,8 @@ import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.drawstuff.drawer.bitmap.search.BitmapSearcher;
+
 public class DrawView extends View {
 
 	private static final float TOUCH_TOLERANCE = 4;
@@ -94,9 +96,14 @@ public class DrawView extends View {
 
 			case MotionEvent.ACTION_UP:
 				onStopPathDrawing(false);
+				cropSearch();
 				break;
 			}
 		}
+	}
+
+	private void cropSearch() {
+		new BitmapSearcher().cropSearchBitmap(savedBitmap, .05f);
 	}
 
 	public void onStopPathDrawing(boolean clearNow) {
