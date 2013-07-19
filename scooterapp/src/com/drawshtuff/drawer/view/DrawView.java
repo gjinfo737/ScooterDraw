@@ -112,7 +112,7 @@ public class DrawView extends View {
 
 	private void doIt(int x, int y) {
 		// new BitmapSearcher().cropSearchBitmap(savedBitmap, .05f);
-		new Cropper(new BitmapPixelGrabber(savedBitmap)).radialFrom(new Point(x, y));
+		new Cropper(new BitmapPixelGrabber(savedBitmap)).radialFrom(new Point(x, y), 3, 40);
 	}
 
 	public void onStopPathDrawing(boolean clearNow) {

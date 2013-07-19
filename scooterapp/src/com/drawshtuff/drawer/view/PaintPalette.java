@@ -7,7 +7,7 @@ import android.graphics.PorterDuffXfermode;
 
 public class PaintPalette {
 
-	public static final float ERASER_GIRTH = 15f;
+	public static final float ERASER_GIRTH = 3f;
 	public static final PorterDuffXfermode CLEAR_XFER_MODE = new PorterDuffXfermode(PorterDuff.Mode.CLEAR);
 	public static final int DEFAULT_PEN_COLOR = Color.BLACK;
 	public static final int DEFAULT_PEN_GIRTH = 1;

@@ -21,7 +21,7 @@ public class Scooter extends Activity {
 		setContentView(layout.draw);
 		drawView = new DrawView(getApplicationContext(), 800, 600);
 		RelativeLayout relativeLayout = (RelativeLayout) findViewById(id.main_rel_lay);
-		relativeLayout.setBackgroundColor(Color.GRAY);
+		relativeLayout.setBackgroundColor(Color.WHITE);
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(800, 600);
 		params.addRule(RelativeLayout.CENTER_IN_PARENT);
 		relativeLayout.addView(drawView, params);

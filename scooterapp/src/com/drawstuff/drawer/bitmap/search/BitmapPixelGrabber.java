@@ -1,5 +1,7 @@
 package com.drawstuff.drawer.bitmap.search;
 
+import java.util.Random;
+
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -82,6 +84,14 @@ public class BitmapPixelGrabber {
 
 	public int bottom() {
 		return height();
+	}
+
+	public void nextColor() {
+		Random rand = new Random();
+		int red = rand.nextInt(256);
+		int green = rand.nextInt(256);
+		int blue = rand.nextInt(256);
+		paint.setColor(Color.rgb(red, green, blue));
 	}
 
 }
