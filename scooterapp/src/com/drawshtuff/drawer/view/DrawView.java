@@ -4,12 +4,14 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.drawstuff.drawer.bitmap.search.BitmapSearcher;
+import com.drawstuff.drawer.bitmap.search.BitmapPixelGrabber;
+import com.drawstuff.drawer.bitmap.search.Cropper;
 
 public class DrawView extends View {
 
@@ -78,10 +80,17 @@ public class DrawView extends View {
 		savedBitmapCanvas.drawColor(color);
 	}
 
+	int counter = 0;
+
 	private void touch(int action, float x, float y) {
 		if (touchIsInBounds(x, y, getBounds())) {
 			calculateLeastGreatestPoint(x, y);
+			counter++;
 
+			if (counter > 3) {
+				counter = 0;
+				doIt((int) x, (int) y);
+			}
 			switch (action) {
 			case MotionEvent.ACTION_DOWN:
 				isPathDrawing = true;
@@ -96,14 +105,14 @@ public class DrawView extends View {
 
 			case MotionEvent.ACTION_UP:
 				onStopPathDrawing(false);
-				cropSearch();
 				break;
 			}
 		}
 	}
 
-	private void cropSearch() {
-		new BitmapSearcher().cropSearchBitmap(savedBitmap, .05f);
+	private void doIt(int x, int y) {
+		// new BitmapSearcher().cropSearchBitmap(savedBitmap, .05f);
+		new Cropper(new BitmapPixelGrabber(savedBitmap)).radialFrom(new Point(x, y));
 	}
 
 	public void onStopPathDrawing(boolean clearNow) {

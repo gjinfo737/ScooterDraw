@@ -10,7 +10,7 @@ public class PaintPalette {
 	public static final float ERASER_GIRTH = 15f;
 	public static final PorterDuffXfermode CLEAR_XFER_MODE = new PorterDuffXfermode(PorterDuff.Mode.CLEAR);
 	public static final int DEFAULT_PEN_COLOR = Color.BLACK;
-	public static final int DEFAULT_PEN_GIRTH = 15;
+	public static final int DEFAULT_PEN_GIRTH = 1;
 	private Paint paint;
 	private int lastColor;
 

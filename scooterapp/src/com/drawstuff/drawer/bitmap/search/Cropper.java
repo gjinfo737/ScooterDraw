@@ -1,5 +1,7 @@
 package com.drawstuff.drawer.bitmap.search;
 
+import java.util.Random;
+
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
@@ -20,23 +22,23 @@ public class Cropper {
 	}
 
 	public Rect cropRegion(Point hitPoint) {
-		Rect bounds1 = searchArcsInQudrant(hitPoint, Quadrant.FIRST);
-		Rect bounds2 = searchArcsInQudrant(hitPoint, Quadrant.SECOND);
-		Rect bounds3 = searchArcsInQudrant(hitPoint, Quadrant.THIRD);
-		Rect bounds4 = searchArcsInQudrant(hitPoint, Quadrant.FOURTH);
+		Rect bounds1 = searchArcsInQudrant(hitPoint, Quadrant.FIRST, true);
+		Rect bounds2 = searchArcsInQudrant(hitPoint, Quadrant.SECOND, true);
+		Rect bounds3 = searchArcsInQudrant(hitPoint, Quadrant.THIRD, true);
+		Rect bounds4 = searchArcsInQudrant(hitPoint, Quadrant.FOURTH, true);
 		Rect superlativeBounds = BitmapSearcher.getSuperlativeBounds(bounds1, bounds2, bounds3, bounds4);
 		return superlativeBounds;
 	}
 
-	private Rect searchArcsInQudrant(Point hitPoint, Quadrant quadrant) {
-		Rect bounds1 = searchArc(hitPoint, 0f, (float) (Math.PI / 6f), quadrant);
-		Rect bounds2 = searchArc(hitPoint, (float) (Math.PI / 6f), (float) (Math.PI / 3f), quadrant);
-		Rect bounds3 = searchArc(hitPoint, (float) (Math.PI / 3f), (float) (Math.PI / 2f), quadrant);
+	private Rect searchArcsInQudrant(Point hitPoint, Quadrant quadrant, boolean test) {
+		Rect bounds1 = searchArc(hitPoint, 0f, (float) (Math.PI / 6f), quadrant, test);
+		Rect bounds2 = searchArc(hitPoint, (float) (Math.PI / 6f), (float) (Math.PI / 3f), quadrant, test);
+		Rect bounds3 = searchArc(hitPoint, (float) (Math.PI / 3f), (float) (Math.PI / 2f), quadrant, test);
 
 		return BitmapSearcher.getSuperlativeBounds(bounds1, bounds2, bounds3);
 	}
 
-	private Rect searchArc(Point hitPoint, float angleMin, float angleMax, Quadrant quadrant) {
+	private Rect searchArc(Point hitPoint, float angleMin, float angleMax, Quadrant quadrant, boolean test) {
 		Point greatest = new Point(0, 0);
 		Point least = new Point(10000000, 10000000);
 		int allWhiteCount = 0;
@@ -63,11 +65,14 @@ public class Cropper {
 
 				greatest = bound(greatest, new Point(0, 0), new Point(width, height));
 				least = bound(least, new Point(0, 0), new Point(width, height));
-
-				if (bitmapPixelGrabber.testAndDraw((int) pointF.x, (int) pointF.y)) {
-					allWhiteCount = 0;
-					allWhite = false;
-					break;
+				if (test) {
+					if (bitmapPixelGrabber.testAndDraw((int) pointF.x, (int) pointF.y)) {
+						allWhiteCount = 0;
+						allWhite = false;
+						break;
+					}
+				} else {
+					bitmapPixelGrabber.drawPoint((int) pointF.x, (int) pointF.y);
 				}
 			}
 			if (allWhite) {
@@ -117,6 +122,19 @@ public class Cropper {
 		}
 
 		return points;
+	}
+
+	public void radialFrom(Point hitPoint) {
+		Random rand = new Random();
+		if (rand.nextBoolean())
+			searchArcsInQudrant(hitPoint, Quadrant.FIRST, true);
+		if (rand.nextBoolean())
+			searchArcsInQudrant(hitPoint, Quadrant.SECOND, true);
+		if (rand.nextBoolean())
+			searchArcsInQudrant(hitPoint, Quadrant.THIRD, true);
+		if (rand.nextBoolean())
+			searchArcsInQudrant(hitPoint, Quadrant.FOURTH, true);
+
 	}
 
 }

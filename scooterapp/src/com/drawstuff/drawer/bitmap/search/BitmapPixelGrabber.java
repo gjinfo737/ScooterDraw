@@ -24,8 +24,12 @@ public class BitmapPixelGrabber {
 		if (isBlack)
 			return isBlack;
 
-		canvas.drawCircle(x, y, 1, paint);
+		drawPoint(x, y);
 		return isBlack;
+	}
+
+	public void drawPoint(int x, int y) {
+		canvas.drawCircle(x, y, 1, paint);
 	}
 
 	public boolean test(int x, int y) {
